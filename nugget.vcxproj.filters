@@ -9,105 +9,198 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Vendor">
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{d1c28fe4-7a48-4320-97c1-dcdf9051692d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Epoch">
+      <UniqueIdentifier>{c76d5947-442c-4ccb-9730-b2af600cfe5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Vendor">
       <UniqueIdentifier>{3934a400-8796-4f7d-b581-9bf5a6ae2262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Epoch\Probe">
+      <UniqueIdentifier>{a4366545-b837-4e57-a399-6b5856f1a6b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Epoch\VM">
+      <UniqueIdentifier>{8db0c52b-fa3c-4cd1-9826-2c3a381b8dd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Epoch\Dialog">
+      <UniqueIdentifier>{9f9f001b-97ab-4e2c-909f-092f85a9d692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Nug">
+      <UniqueIdentifier>{13994b3e-df27-4190-9a8f-2403d2237f2e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Engine\vendor\glad\glad.c">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Engine\vendor\imgui\imgui.cpp">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClCompile>
-    <ClCompile Include="src\mesh.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Engine\vendor\imgui\imgui_demo.cpp">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClCompile>
-    <ClCompile Include="src\shader.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Engine\vendor\imgui\imgui_draw.cpp">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClCompile>
-    <ClCompile Include="src\sprite.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Engine\vendor\imgui\imgui_tables.cpp">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClCompile>
-    <ClCompile Include="src\tileMap.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Engine\vendor\imgui\imgui_widgets.cpp">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClCompile>
-    <ClCompile Include="src\tileset.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Engine\Camera.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="vendor\glad\glad.c">
-      <Filter>Source Files\Vendor</Filter>
+    <ClCompile Include="src\Engine\mesh.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Camera.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Engine\Mesh2.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="vendor\imgui\backends\imgui_impl_glfw.cpp">
-      <Filter>Source Files\Vendor</Filter>
+    <ClCompile Include="src\Engine\Model.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="vendor\imgui\backends\imgui_impl_opengl3.cpp">
-      <Filter>Source Files\Vendor</Filter>
+    <ClCompile Include="src\Engine\shader.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="vendor\imgui\imgui.cpp">
-      <Filter>Source Files\Vendor</Filter>
+    <ClCompile Include="src\Epoch\Dialog\Dialog.cpp">
+      <Filter>Source Files\Epoch\Dialog</Filter>
     </ClCompile>
-    <ClCompile Include="vendor\imgui\imgui_demo.cpp">
-      <Filter>Source Files\Vendor</Filter>
+    <ClCompile Include="src\Epoch\VM\vm.cpp">
+      <Filter>Source Files\Epoch\VM</Filter>
     </ClCompile>
-    <ClCompile Include="vendor\imgui\imgui_draw.cpp">
-      <Filter>Source Files\Vendor</Filter>
+    <ClCompile Include="src\Epoch\Game.cpp">
+      <Filter>Source Files\Epoch</Filter>
     </ClCompile>
-    <ClCompile Include="vendor\imgui\imgui_tables.cpp">
-      <Filter>Source Files\Vendor</Filter>
+    <ClCompile Include="src\Epoch\sprite.cpp">
+      <Filter>Source Files\Epoch</Filter>
     </ClCompile>
-    <ClCompile Include="vendor\imgui\imgui_widgets.cpp">
-      <Filter>Source Files\Vendor</Filter>
+    <ClCompile Include="src\Epoch\main.cpp">
+      <Filter>Source Files\Epoch</Filter>
     </ClCompile>
-    <ClCompile Include="src\npc.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Engine\vendor\imgui\backends\imgui_impl_glfw.cpp">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClCompile>
-    <ClCompile Include="src\BehaviorTree.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3.cpp">
+      <Filter>Source Files\Engine\Vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Nug\BehaviorTree.cpp">
+      <Filter>Source Files\Nug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Nug\Game.cpp">
+      <Filter>Source Files\Nug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Nug\main_alt.cpp">
+      <Filter>Source Files\Nug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Nug\npc.cpp">
+      <Filter>Source Files\Nug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Nug\sprite.cpp">
+      <Filter>Source Files\Nug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Nug\tileMap.cpp">
+      <Filter>Source Files\Nug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Nug\tileset.cpp">
+      <Filter>Source Files\Nug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Epoch\VM\assembler.cpp">
+      <Filter>Source Files\Epoch\VM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Game.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="src\Engine\vendor\glad\glad.h">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClInclude>
-    <ClInclude Include="src\mesh.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="src\Engine\vendor\GLFW\glfw3.h">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClInclude>
-    <ClInclude Include="src\shader.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="src\Engine\vendor\GLFW\glfw3native.h">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClInclude>
-    <ClInclude Include="src\sprite.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="src\Engine\vendor\imgui\imconfig.h">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClInclude>
-    <ClInclude Include="src\tileMap.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="src\Engine\vendor\imgui\imgui.h">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClInclude>
-    <ClInclude Include="src\tileset.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="src\Engine\vendor\imgui\imgui_internal.h">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\glad\glad.h">
-      <Filter>Source Files\Vendor</Filter>
+    <ClInclude Include="src\Engine\vendor\imgui\imstb_rectpack.h">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\GLFW\glfw3.h">
-      <Filter>Source Files\Vendor</Filter>
+    <ClInclude Include="src\Engine\vendor\imgui\imstb_textedit.h">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\GLFW\glfw3native.h">
-      <Filter>Source Files\Vendor</Filter>
+    <ClInclude Include="src\Engine\vendor\imgui\imstb_truetype.h">
+      <Filter>Source Files\Engine\Vendor</Filter>
     </ClInclude>
-    <ClInclude Include="src\Camera.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="src\Engine\Camera.h">
+      <Filter>Source Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\npc.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="src\Engine\mesh.h">
+      <Filter>Source Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\BehaviorTree.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="src\Engine\Mesh2.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Model.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\shader.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Epoch\Dialog\Dialog.h">
+      <Filter>Source Files\Epoch\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Epoch\VM\vm.h">
+      <Filter>Source Files\Epoch\VM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Epoch\Game.h">
+      <Filter>Source Files\Epoch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Epoch\sprite.h">
+      <Filter>Source Files\Epoch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\vendor\imgui\backends\imgui_impl_glfw.h">
+      <Filter>Source Files\Engine\Vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3.h">
+      <Filter>Source Files\Engine\Vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3_loader.h">
+      <Filter>Source Files\Engine\Vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Nug\BehaviorTree.h">
+      <Filter>Source Files\Nug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Nug\Game.h">
+      <Filter>Source Files\Nug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Nug\npc.h">
+      <Filter>Source Files\Nug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Nug\sprite.h">
+      <Filter>Source Files\Nug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Nug\tileMap.h">
+      <Filter>Source Files\Nug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Nug\tileset.h">
+      <Filter>Source Files\Nug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Epoch\VM\assembler.h">
+      <Filter>Source Files\Epoch\VM</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glfw3.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Story.txt" />
   </ItemGroup>
 </Project>

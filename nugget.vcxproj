@@ -102,15 +102,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GAME_EPOCH</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\development\c++\nugget\vendor\;C:\development\c++\nugget\vendor\imgui\;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\development\c++\nugget\src\engine\vendor\assimp\Compiler;C:\development\c++\nugget\src\engine\vendor\;C:\development\c++\nugget\src\engine\vendor\imgui\;C:\development\c++\nugget\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>lib/libglfw3dll.a;lib/libnoise.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lib/libglfw3dll.a;lib/libnoise.lib;src/engine/vendor/assimp/assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -119,7 +119,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);GAME_EPOCH GAME_EPOCH</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -130,41 +130,68 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\BehaviorTree.cpp" />
-    <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\mesh.cpp" />
-    <ClCompile Include="src\npc.cpp" />
-    <ClCompile Include="src\shader.cpp" />
-    <ClCompile Include="src\sprite.cpp" />
-    <ClCompile Include="src\tileMap.cpp" />
-    <ClCompile Include="src\tileset.cpp" />
-    <ClCompile Include="vendor\glad\glad.c" />
-    <ClCompile Include="vendor\imgui\backends\imgui_impl_glfw.cpp" />
-    <ClCompile Include="vendor\imgui\backends\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="vendor\imgui\imgui.cpp" />
-    <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
-    <ClCompile Include="vendor\imgui\imgui_draw.cpp" />
-    <ClCompile Include="vendor\imgui\imgui_tables.cpp" />
-    <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\Engine\Camera.cpp" />
+    <ClCompile Include="src\Engine\mesh.cpp" />
+    <ClCompile Include="src\Engine\Mesh2.cpp" />
+    <ClCompile Include="src\Engine\Model.cpp" />
+    <ClCompile Include="src\Engine\shader.cpp" />
+    <ClCompile Include="src\Engine\vendor\glad\glad.c" />
+    <ClCompile Include="src\Engine\vendor\imgui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\Engine\vendor\imgui\imgui.cpp" />
+    <ClCompile Include="src\Engine\vendor\imgui\imgui_demo.cpp" />
+    <ClCompile Include="src\Engine\vendor\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\Engine\vendor\imgui\imgui_tables.cpp" />
+    <ClCompile Include="src\Engine\vendor\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\Epoch\Dialog\Dialog.cpp" />
+    <ClCompile Include="src\Epoch\Game.cpp" />
+    <ClCompile Include="src\Epoch\main.cpp" />
+    <ClCompile Include="src\Epoch\sprite.cpp" />
+    <ClCompile Include="src\Epoch\VM\assembler.cpp" />
+    <ClCompile Include="src\Epoch\VM\vm.cpp" />
+    <ClCompile Include="src\Nug\BehaviorTree.cpp" />
+    <ClCompile Include="src\Nug\Game.cpp" />
+    <ClCompile Include="src\Nug\main_alt.cpp" />
+    <ClCompile Include="src\Nug\npc.cpp" />
+    <ClCompile Include="src\Nug\sprite.cpp" />
+    <ClCompile Include="src\Nug\tileMap.cpp" />
+    <ClCompile Include="src\Nug\tileset.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\BehaviorTree.h" />
-    <ClInclude Include="src\Camera.h" />
-    <ClInclude Include="src\Game.h" />
-    <ClInclude Include="src\mesh.h" />
-    <ClInclude Include="src\npc.h" />
-    <ClInclude Include="src\shader.h" />
-    <ClInclude Include="src\sprite.h" />
-    <ClInclude Include="src\tileMap.h" />
-    <ClInclude Include="src\tileset.h" />
-    <ClInclude Include="vendor\glad\glad.h" />
-    <ClInclude Include="vendor\GLFW\glfw3.h" />
-    <ClInclude Include="vendor\GLFW\glfw3native.h" />
+    <ClInclude Include="src\Engine\Camera.h" />
+    <ClInclude Include="src\Engine\mesh.h" />
+    <ClInclude Include="src\Engine\Mesh2.h" />
+    <ClInclude Include="src\Engine\Model.h" />
+    <ClInclude Include="src\Engine\shader.h" />
+    <ClInclude Include="src\Engine\vendor\glad\glad.h" />
+    <ClInclude Include="src\Engine\vendor\GLFW\glfw3.h" />
+    <ClInclude Include="src\Engine\vendor\GLFW\glfw3native.h" />
+    <ClInclude Include="src\Engine\vendor\imgui\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="src\Engine\vendor\imgui\imconfig.h" />
+    <ClInclude Include="src\Engine\vendor\imgui\imgui.h" />
+    <ClInclude Include="src\Engine\vendor\imgui\imgui_internal.h" />
+    <ClInclude Include="src\Engine\vendor\imgui\imstb_rectpack.h" />
+    <ClInclude Include="src\Engine\vendor\imgui\imstb_textedit.h" />
+    <ClInclude Include="src\Engine\vendor\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\Epoch\Dialog\Dialog.h" />
+    <ClInclude Include="src\Epoch\Game.h" />
+    <ClInclude Include="src\Epoch\sprite.h" />
+    <ClInclude Include="src\Epoch\VM\assembler.h" />
+    <ClInclude Include="src\Epoch\VM\vm.h" />
+    <ClInclude Include="src\Nug\BehaviorTree.h" />
+    <ClInclude Include="src\Nug\Game.h" />
+    <ClInclude Include="src\Nug\npc.h" />
+    <ClInclude Include="src\Nug\sprite.h" />
+    <ClInclude Include="src\Nug\tileMap.h" />
+    <ClInclude Include="src\Nug\tileset.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glfw3.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Story.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,148 @@
+In 1983 the United States launched an interstellar probe named Epoch II.
+After successfully entering interstellar space and reaching end-of-life,
+its power sources depleted, it powered down and ground support disbanded.
+
+Three days ago Space Command received an unexpected signal from the probe.
+
+
+
+
+
+""
+Sorry we had to call you in at such an odd hour. There's been an... unusual development.
+
+Have you ever heard of Epoch II? It's a space probe launched by the US 
+
+
+Probe has "subroutine" slots. Each program written can be assigned to a subroutine slot
+and takes up memory. Subroutine size totals must fit in total memory. Initially only a few
+subroutine slots are available/functioning. Puzzes can be solved later to open them up.
+Subroutine slots can be called from other subroutines, or from the main routine.
+
+
+
+
+
+
+
+LOG
+
+07.06.24
+2 hours
+* imgui text editor
+* restored NPC w/ mesh as a placeholder for probe 3d mesh
+
+07.07.24
+2 hours
+* Assimp build and import
+* Mesh and Model import
+* Textured probe model placeholder
+
+07.08.24
+.5 hours
+* Started VM
+
+07.09.24
+*
+
+07.10.24
+*
+
+07.11.24
+*
+
+07.12.24
+1 hours
+* Continued VM instruction set.
+
+07.13.24
+
+07.14.24
+2 hours
+* Finished VM instruction set.
+
+07.15.24
+* 
+
+07.16.24
+2 hours
+* Opcode debugging
+
+07.17.24
+1 hour
+* Finished debugging the opcodes and got 2048 to run properly.
+* Thinking about IDE file slot representation, save & load.
+
+07.19.24
+1 hour
+* Study LC3 Assembler writing
+
+07.20.24
+0.75 hour
+* Start writing the vm assembler.
+
+07.21.24
+2 hours
+* Parsed lines and words
+* Generated symbol table
+
+07.22.24
+0.5 hours
+* Keyword lookup
+
+07.23.24
+0.5 hours
+* Finished symbol table and first pass parsing/addressing. Ready to encode.
+
+07.24.24
+1 hours
+* Started encoding firt opcode (LD). Ready to test.
+
+07.25.24
+1 hour
+* Debugging and tweaking encoding. Need to strip commas
+
+07.26.24
+1 hour
+* Stripped commas, finished encoding LD and ADD!
+
+07.27.24
+0.5 hour
+* Encode ST
+
+07.28.24
+4 hours
+* Finished encoding first test program. Unit test says it works. Lots left to do.
+* Loading 2048 .obj and .asm. ATTEMPTING to encode, and then comparing results. Fails in symbol table generation.
+
+07.29.24
+1 hours
+* Fixed 1-word label parsing.
+* Started debugging .ORIG missmatch.
+
+
+
+
+*Probe*
+
+- probe mesh
+
+
+*Vm*
+
+
+*Ide*
+
+
+*Dialog*
+- Draw NPC bust
+- Draw NPC text
+- Sequence NPC text
+
+
+*Subroutine Slots*
+
+
+
+
+
