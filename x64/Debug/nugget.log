@@ -1,12 +1,5 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1101,5): warning MSB8027: Two or more files with the name of Game.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are src\Epoch\Game.cpp, src\Nug\Game.cpp.
 C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1101,5): warning MSB8027: Two or more files with the name of sprite.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are src\Epoch\sprite.cpp, src\Nug\sprite.cpp.
-  main.cpp
-C:\development\c++\nugget\src\Epoch\main.cpp(255,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-x64\Debug\Game.obj : warning LNK4042: object specified more than once; extras ignored
-x64\Debug\sprite.obj : warning LNK4042: object specified more than once; extras ignored
-libnoise.lib(modulebase.obj) : warning LNK4099: PDB '' was not found with 'libnoise.lib(modulebase.obj)' or at ''; linking object as if no debug info
-libnoise.lib(perlin.obj) : warning LNK4099: PDB '' was not found with 'libnoise.lib(perlin.obj)' or at ''; linking object as if no debug info
-libnoise.lib(noisegen.obj) : warning LNK4099: PDB '' was not found with 'libnoise.lib(noisegen.obj)' or at ''; linking object as if no debug info
-     Creating library C:\development\c++\nugget\x64\Debug\nugget.lib and object C:\development\c++\nugget\x64\Debug\nugget.exp
-LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  assembler.cpp
+C:\development\c++\nugget\src\Epoch\VM\assembler.cpp(113,33): warning C4129: 'e': unrecognized character escape sequence
   nugget.vcxproj -> C:\development\c++\nugget\x64\Debug\nugget.exe

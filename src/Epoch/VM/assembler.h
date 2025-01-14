@@ -16,7 +16,7 @@ public:
     unsigned short address;
     unsigned short numWords = 0;
     unsigned short numInstWords = 0;
-
+    unsigned short firstInstWord = 0;
 };
 
-void vm_assemble(char* program, unsigned short* image, unsigned short& imageSize, std::vector<Line>& programLines);
+void vm_assemble(char* program, unsigned short* image, unsigned short& imageSize, std::vector<Line>& programLines, unsigned short* testImage = nullptr);

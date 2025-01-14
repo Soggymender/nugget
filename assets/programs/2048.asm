@@ -1,34 +1,4 @@
-;--------------------------------------------------------------------------
-;
-; Project: rpendleton/lc3-2048
-; Description: An implementation of git.io/2048 created using LC-3.
-; Created by: Ryan Pendleton (Dec 2014)
-;
-; License: MIT (see accompanying LICENSE file)
-;
-; This program was originally written for my final project while taking CS 2810
-; (Computer Organization and Architecture) at Utah Valley University. A few
-; semesters later, my professor asked if I would be willing to make my source
-; public as a resource to future students, which led to this GitHub project.
-;
-; Since 2014, I've continued to explore LC-3 and have worked on several related
-; projects. Although the source code remains largely similar to what I submitted
-; for my final project back in 2014, I've made a few modifications to it as
-; appropriate for these other projects.
-;
-; Along those lines, since I don't use Windows anymore, I haven't tested any of
-; my recent modifications with the official LC-3 client. If you run into issues,
-; I'd recommend looking through the Git history for the original version.
-;
-;--------------------------------------------------------------------------
-
 .ORIG x3000
-
-;--------------------------------------------------------------------------
-; MAIN
-; Initializes program
-;--------------------------------------------------------------------------
-
 MAIN
       LD    R6, STACK                     ; load stack pointer
       LEA   R5, BOARD                     ; load board pointer
@@ -45,8 +15,10 @@ MAIN
       LD    R2, TEXT_BOARD_LABELS_TBL_PTR
       STR   R2, R1, #0
 
-NEW   JSR   RESET_BOARD                   ; reset the board
-LOOP  JSR   DISPLAY_BOARD                 ; display the board
+NEW
+      JSR   RESET_BOARD                   ; reset the board
+LOOP
+      JSR   DISPLAY_BOARD                 ; display the board
       JSR   GET_KEY                       ; wait for for a move
 
       LD    R0, DEAD                      ; check if user is dead
@@ -65,7 +37,7 @@ IS_DEAD
 ; global data
       STACK       .FILL x4000
 ;     GAME_STATE
-            DEAD  .FILL x00
+            DEAD  .FILL x00         ; address 26
             BOARD .FILL x01         ; creates an initial game state that
                   .FILL x07         ; can be used to debug game logic
                   .FILL x08
@@ -83,14 +55,14 @@ IS_DEAD
                   .FILL x0B
                   .FILL x0C
 
-      CLEAR_STRING_PTR             .FILL       CLEAR_STRING
+      CLEAR_STRING_PTR             .FILL       CLEAR_STRING                         ; < instruction idx 40. Error 0x321c != 0x000
       BOARD_LABELS_TBL_PTR_PTR     .FILL       BOARD_LABELS_TBL_PTR
       TEXT_BOARD_LABELS_TBL_PTR    .FILL       TEXT_BOARD_LABELS_TBL
 
-      PROMPT_TYPE_MESSAGE     .STRINGZ    "Are you on an ANSI terminal (y|n)? "
-      PROMPT_DEATH_MESSAGE    .STRINGZ    "Would you like to play again (y|n)? "
-      DEATH_MESSAGE           .STRINGZ    "\nYou lost :(\n\n"
-      INSTRUCTION_MESSAGE     .STRINGZ    "Control the game using WASD keys.\n"
+      PROMPT_TYPE_MESSAGE     .STRINGZ    "Are you on an ANSI terminal (y|n)? "     ; 35
+      PROMPT_DEATH_MESSAGE    .STRINGZ    "Would you like to play again (y|n)? "    ; 36
+      DEATH_MESSAGE           .STRINGZ    "\nYou lost :(\n\n"                       ; 17
+      INSTRUCTION_MESSAGE     .STRINGZ    "Control the game using WASD keys.\n"     ; 35, 123
 
 ;--------------------------------------------------------------------------
 ; RESET_BOARD

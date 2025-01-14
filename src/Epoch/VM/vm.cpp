@@ -418,6 +418,95 @@ void op_rti() {
 
 }
 
+void exec_instr(unsigned short cur_instr) {
+
+	instr = cur_instr;
+
+	unsigned short op = instr >> 12;
+
+	switch (op) {
+
+	case OP_ADD:
+		log("add");
+		op_add();
+		break;
+
+	case OP_AND:
+		log("and");
+		op_and();
+		break;
+
+	case OP_NOT:
+		log("not");
+		op_not();
+		break;
+
+	case OP_BR:
+		log("br");
+		op_br();
+		break;
+
+	case OP_JMP:
+		log("jmp");
+		op_jmp();
+		break;
+
+	case OP_JSR:
+		log("jsr");
+		op_jsr();
+		break;
+
+	case OP_LD:
+		log("ld");
+		op_ld();
+		break;
+
+	case OP_LDI:
+		log("ldi");
+		op_ldi();
+		break;
+
+	case OP_LDR:
+		log("ldr");
+		op_ldr();
+		break;
+
+	case OP_LEA:
+		log("lea");
+		op_lea();
+		break;
+
+	case OP_ST:
+		log("st");
+		op_st();
+		break;
+
+	case OP_STI:
+		log("sti");
+		op_sti();
+		break;
+
+	case OP_STR:
+		log("str");
+		op_str();
+		break;
+
+	case OP_TRAP:
+		log("trap");
+		op_trap();
+		break;
+
+	case OP_RTI:
+		log("rti");
+		op_rti();
+
+	case OP_RES:
+		log("res");
+	default:
+		break;
+	}
+}
+
 int vm_main(char* imageFilename)
 {
 	signal(SIGINT, handle_interrupt);
@@ -434,90 +523,8 @@ int vm_main(char* imageFilename)
 
 		// FETCH
 
-		instr = mem_read(reg[R_PC]++);
-		unsigned short op = instr >> 12;
-
-		switch (op) {
-
-		case OP_ADD:
-			log("add");
-			op_add();
-			break;
-
-		case OP_AND:
-			log("and");
-			op_and();
-			break;
-
-		case OP_NOT:
-			log("not");
-			op_not();
-			break;
-
-		case OP_BR:
-			log("br");
-			op_br();
-			break;
-
-		case OP_JMP:
-			log("jmp");
-			op_jmp();
-			break;
-
-		case OP_JSR:
-			log("jsr");
-			op_jsr();
-			break;
-
-		case OP_LD:
-			log("ld");
-			op_ld();
-			break;
-
-		case OP_LDI:
-			log("ldi");
-			op_ldi();
-			break;
-
-		case OP_LDR:
-			log("ldr");
-			op_ldr();
-			break;
-
-		case OP_LEA:
-			log("lea");
-			op_lea();
-			break;
-
-		case OP_ST:
-			log("st");
-			op_st();
-			break;
-
-		case OP_STI:
-			log("sti");
-			op_sti();
-			break;
-
-		case OP_STR:
-			log("str");
-			op_str();
-			break;
-
-		case OP_TRAP:
-			log("trap");
-			op_trap();
-			break;
-
-		case OP_RTI:
-			log("rti");
-			op_rti();
-
-		case OP_RES:
-			log("res");
-		default:
-			break;
-		}
+		unsigned short cur_instr = mem_read(reg[R_PC]++);
+		exec_instr(cur_instr);
 
 		log("\n");
 	}

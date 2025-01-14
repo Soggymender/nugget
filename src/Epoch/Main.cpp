@@ -10,6 +10,8 @@
 
 #include <iostream>
 #include <bitset>
+#include <unordered_map>
+
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -56,9 +58,10 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
     blarg.Scroll(xoffset, yoffset);
 }
 
+extern unordered_map<string, unsigned short> registerIndices;
+
 int main(void)
 {
-    /*
     char* writtenAsm = nullptr;
 
     unsigned short imageSize = 0;
@@ -86,7 +89,7 @@ int main(void)
     memset(&image, 0, sizeof(image));
 
     std::vector<Line> programLines;
-    vm_assemble(writtenAsm, image, imageSize, programLines);
+    vm_assemble(writtenAsm, image, imageSize, programLines, testImage);
 
     // Check encoding accuracy.
     cout << endl << endl;
@@ -95,8 +98,11 @@ int main(void)
     {
         cout << "\t" << bitset<16>(image[i]);
 
-        if (image[i] != testImage[i])
+        if (image[i] != testImage[i]) {
             cout << " != " << bitset<16>(testImage[i]);
+            exec_instr(testImage[i]);
+            exec_instr(image[i]);
+        }
 
         cout << endl;
     }
@@ -116,7 +122,6 @@ int main(void)
     }
 
     return 0;
-    */
 
     glfwInit();
 
