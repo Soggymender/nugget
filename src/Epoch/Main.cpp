@@ -8,6 +8,9 @@
 #include "imgui/backends/imgui_impl_glfw.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
 
+//#define STB_IMAGE_IMPLEMENTATION
+#include "stb/stb_img.h"
+
 #include <iostream>
 #include <bitset>
 #include <unordered_map>
@@ -28,13 +31,14 @@ using namespace std;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
-const unsigned int SCR_WIDTH = 1280;
-const unsigned int SCR_HEIGHT = 1024;
+const unsigned int SCR_WIDTH = 1600;
+const unsigned int SCR_HEIGHT = 900;
 
 float deltaTime = 0.0f;	// Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 
 Game blarg;
+void RenderUI();
 
 void processInput(GLFWwindow *window)
 {
@@ -62,17 +66,18 @@ extern unordered_map<string, unsigned short> registerIndices;
 
 int main(void)
 {
+/*
     char* writtenAsm = nullptr;
 
     unsigned short imageSize = 0;
     unsigned short image[0xFFFF];
 
-    unsigned short testImageSize = 0;
-    unsigned short testImage[0xFFFF];
+//    unsigned short testImageSize = 0;
+//    unsigned short testImage[0xFFFF];
 
     // Load the test image.
-    memset(testImage, 0, sizeof(testImage));
-    read_image("assets\\programs\\2048.obj", false, testImage);
+//    memset(testImage, 0, sizeof(testImage));
+//    read_image("assets\\programs\\2048.obj", false, testImage);
 
     FILE* f = fopen("assets\\programs\\2048.asm", "rb");
     fseek(f, 0, SEEK_END);
@@ -89,9 +94,12 @@ int main(void)
     memset(&image, 0, sizeof(image));
 
     std::vector<Line> programLines;
-    vm_assemble(writtenAsm, image, imageSize, programLines, testImage);
+    vm_assemble(writtenAsm, image, imageSize, programLines);// testImage);
+    */
 
     // Check encoding accuracy.
+
+    /*
     cout << endl << endl;
 
     for (int i = 0; i < imageSize; i++)
@@ -109,19 +117,17 @@ int main(void)
 
     cout << endl << endl;
 
-
-
-
     return 0;
+    */
 
-    char img_file[] = "none";
-    vm_main(img_file);
+//    char img_file[] = "none";
+//    vm_main(img_file);
 
-    if (testImage != nullptr) {
-        free(testImage);
-    }
+//    if (testImage != nullptr) {
+//        free(testImage);
+//    }
 
-    return 0;
+//    return 0;
 
     glfwInit();
 
@@ -209,8 +215,6 @@ int main(void)
 
         blarg.Update(deltaTime);
 
-
-
         // Imgui
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
@@ -225,9 +229,12 @@ int main(void)
 
             // Set up ImGui layout
             ImGui::SetNextWindowSize(size, ImGuiCond_Always);  // Always set the size
+                        
             ImGui::SetNextWindowPos(ImVec2((SCR_WIDTH - size.x) * 0.5f, (SCR_HEIGHT - size.y) * 0.5f), ImGuiCond_Always);  // Center the window
             ImGui::SetNextWindowBgAlpha(0.66f);
 
+            RenderUI();
+            /*
             // Begin ImGui window
             ImGui::Begin("Epoch IDE", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
@@ -237,6 +244,7 @@ int main(void)
             ImGui::InputTextMultiline("##InputText", textBuffer, IM_ARRAYSIZE(textBuffer), textSize);
 
             ImGui::End();
+            */
         }
 
         // IMGUI Rendering
@@ -272,5 +280,149 @@ int main(void)
     glfwTerminate();
     return 0;
 }
+
+void RenderUI() {
+    ImGui::Begin("Main Window", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+
+    ImVec2 vMin = ImGui::GetWindowContentRegionMin();
+    ImVec2 vMax = ImGui::GetWindowContentRegionMax();
+
+    vMin.x += ImGui::GetWindowPos().x;
+    vMin.y += ImGui::GetWindowPos().y;
+    vMax.x += ImGui::GetWindowPos().x;
+    vMax.y += ImGui::GetWindowPos().y;
+
+    ImGuiStyle& style = ImGui::GetStyle();
+    float borderSize = style.WindowPadding.x;// .WindowPadding;// .FrameBorderSize;
+
+//    ImGui::GetForegroundDrawList()->AddRect(vMin, vMax, IM_COL32(255, 255, 0, 255));
+
+    float width = vMax.x - vMin.x;
+    float height = vMax.y - vMin.y;
+
+    // Define sizes for the panes
+    float large_pane_width = width * 0.70f;  // Width of the large pane
+    float space_between_panes = width * 0.05f; // Space between the large pane and the small panes
+    float small_pane_height = (height - space_between_panes) * 0.5f; // Height of each small pane
+
+    // Create a large pane (left)
+    ImVec2 large_pane_size = ImVec2(large_pane_width, height);
+    ImGui::BeginChild("LargePane", large_pane_size, true);
+    ImGui::Text("Large Pane");
+    if (ImGui::Button("Large Pane Button")) {
+        // Handle button click
+    }
+
+    ImGui::EndChild();
+
+    // Move to the right side of the large pane
+    ImGui::SameLine();
+    ImGui::BeginGroup();
+
+    // Create a container to hold the small panes vertically
+    ImVec2 small_pane_size = ImVec2(ImGui::GetWindowSize().x - large_pane_width - (borderSize * 3.0f), small_pane_height);
+
+    // First small pane
+    ImGui::BeginChild("SmallPane1", small_pane_size, true);
+    ImGui::Text("Small Pane 1");
+    if (ImGui::Button("Button 1")) {
+        // Handle button click
+    }
+    ImGui::EndChild();
+
+    // Space between small panes
+    ImGui::Dummy(ImVec2(0, space_between_panes - borderSize));
+
+    // Second small pane
+    ImGui::BeginChild("SmallPane2", small_pane_size, true);
+    ImGui::Text("Small Pane 2");
+    if (ImGui::Button("Button 2")) {
+        // Handle button click
+    }
+    ImGui::EndChild();
+    ImGui::EndGroup();
+
+    ImGui::End();
+}
+
+
+void ShowIconGrid() {
+    // Example list of image paths (replace with actual paths)
+    const char* iconPaths[] = {
+        "icon1.png",
+        "icon2.png",
+        "icon3.png",
+        "icon4.png",
+        "icon5.png",
+        "icon6.png",
+    };
+
+    // Load textures for the icons
+    GLuint iconTextures[6];
+    for (int i = 0; i < 6; ++i) {
+        iconTextures[i] = LoadTextureFromFile(iconPaths[i]);
+    }
+
+    // Set up grid parameters
+    int iconsPerRow = 3;  // How many icons per row
+    ImVec2 iconSize(64.0f, 64.0f);  // Set the size of each icon
+
+    // Start a new column for layout
+    ImGui::Columns(iconsPerRow, NULL, false);  // false means no border between columns
+
+    for (int i = 0; i < 6; ++i) {
+        if (ImGui::ImageButton((void*)(intptr_t)iconTextures[i], iconSize)) {
+            // Handle icon click (e.g., perform an action)
+            std::cout << "Icon " << i + 1 << " clicked!" << std::endl;
+        }
+        ImGui::NextColumn();  // Move to the next column
+    }
+
+    // End the columns layout
+    ImGui::Columns(1);  // Reset columns to a single column after the grid
+}
+
+GLuint LoadTextureFromFile(const char* filename) {
+    // Load the image using stb_image
+    int width, height, channels;
+    unsigned char* image = stbi_load(filename, &width, &height, &channels, 0);
+    if (!image) {
+        std::cerr << "Failed to load image: " << filename << std::endl;
+        return 0;  // Return 0 if the texture loading failed
+    }
+
+    // Generate an OpenGL texture
+    GLuint textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    // Set texture parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    // Upload the image to the GPU as a texture
+    if (channels == 3) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    }
+    else if (channels == 4) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+    }
+    else {
+        std::cerr << "Unsupported image format" << std::endl;
+        stbi_image_free(image);
+        return 0;  // Return 0 if the image format is unsupported
+    }
+
+    // Generate mipmaps for the texture
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    // Free the image data as it's no longer needed
+    stbi_image_free(image);
+
+    return textureID;
+}
+
 
 #endif
