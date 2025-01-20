@@ -1,5 +1,4 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1101,5): warning MSB8027: Two or more files with the name of Game.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are src\Epoch\Game.cpp, src\Nug\Game.cpp.
 C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1101,5): warning MSB8027: Two or more files with the name of sprite.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are src\Epoch\sprite.cpp, src\Nug\sprite.cpp.
-  main.cpp
-C:\development\c++\nugget\src\Epoch\main.cpp(265,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  source_file.cpp
   nugget.vcxproj -> C:\development\c++\nugget\x64\Debug\nugget.exe

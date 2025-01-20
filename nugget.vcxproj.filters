@@ -110,6 +110,18 @@
     <ClCompile Include="src\Epoch\VM\assembler.cpp">
       <Filter>Source Files\Epoch\VM</Filter>
     </ClCompile>
+    <ClCompile Include="src\Epoch\source_file.cpp">
+      <Filter>Source Files\Epoch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Texture.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Epoch\probe.cpp">
+      <Filter>Source Files\Epoch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Epoch\workstation.cpp">
+      <Filter>Source Files\Epoch</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\vendor\glad\glad.h">
@@ -195,6 +207,18 @@
     </ClInclude>
     <ClInclude Include="src\Epoch\VM\assembler.h">
       <Filter>Source Files\Epoch\VM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Epoch\source_file.h">
+      <Filter>Source Files\Epoch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Texture.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Epoch\probe.h">
+      <Filter>Source Files\Epoch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Epoch\workstation.h">
+      <Filter>Source Files\Epoch</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

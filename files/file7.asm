@@ -1,0 +1,4 @@
+;Header
+
+.ORIG x3000
+MAIN

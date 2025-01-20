@@ -135,6 +135,7 @@
     <ClCompile Include="src\Engine\Mesh2.cpp" />
     <ClCompile Include="src\Engine\Model.cpp" />
     <ClCompile Include="src\Engine\shader.cpp" />
+    <ClCompile Include="src\Engine\Texture.cpp" />
     <ClCompile Include="src\Engine\vendor\glad\glad.c" />
     <ClCompile Include="src\Engine\vendor\imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3.cpp" />
@@ -146,6 +147,9 @@
     <ClCompile Include="src\Epoch\Dialog\Dialog.cpp" />
     <ClCompile Include="src\Epoch\Game.cpp" />
     <ClCompile Include="src\Epoch\main.cpp" />
+    <ClCompile Include="src\Epoch\workstation.cpp" />
+    <ClCompile Include="src\Epoch\probe.cpp" />
+    <ClCompile Include="src\Epoch\source_file.cpp" />
     <ClCompile Include="src\Epoch\sprite.cpp" />
     <ClCompile Include="src\Epoch\VM\assembler.cpp" />
     <ClCompile Include="src\Epoch\VM\vm.cpp" />
@@ -163,6 +167,7 @@
     <ClInclude Include="src\Engine\Mesh2.h" />
     <ClInclude Include="src\Engine\Model.h" />
     <ClInclude Include="src\Engine\shader.h" />
+    <ClInclude Include="src\Engine\Texture.h" />
     <ClInclude Include="src\Engine\vendor\glad\glad.h" />
     <ClInclude Include="src\Engine\vendor\GLFW\glfw3.h" />
     <ClInclude Include="src\Engine\vendor\GLFW\glfw3native.h" />
@@ -177,6 +182,9 @@
     <ClInclude Include="src\Engine\vendor\imgui\imstb_truetype.h" />
     <ClInclude Include="src\Epoch\Dialog\Dialog.h" />
     <ClInclude Include="src\Epoch\Game.h" />
+    <ClInclude Include="src\Epoch\workstation.h" />
+    <ClInclude Include="src\Epoch\probe.h" />
+    <ClInclude Include="src\Epoch\source_file.h" />
     <ClInclude Include="src\Epoch\sprite.h" />
     <ClInclude Include="src\Epoch\VM\assembler.h" />
     <ClInclude Include="src\Epoch\VM\vm.h" />

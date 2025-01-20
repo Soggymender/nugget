@@ -32,6 +32,8 @@ public:
     void Scroll(double x, double y);
 
     void Update(float dt);
+    void UpdateGUI();
+
     void Render();
 
 };
