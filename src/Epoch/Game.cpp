@@ -7,38 +7,29 @@
 #include "imgui/imgui.h"
 
 #include "sprite.h"
-#include "source_file.h"
 
 #include "workstation.h"
-#include "probe.h"
+#include "probe/probe.h"
+#include "skybox.h"
 
 #include "engine/shader.h"
-#include "engine/Model.h"
 #include "Engine/Texture.h"
 
 Workstation workstation;
 Probe probe;
+Skybox skybox;
 
 Sprite sprite;
    
 glm::mat4 projection;
 
-Model* ourModel;
-
 float zoom = 0.0f;
-
-glm::vec3 mapCenter(0.0f, 0.0f, 0.0f);
 
 const unsigned int SCR_WIDTH = 1600;
 const unsigned int SCR_HEIGHT = 900;
 
 GLuint toolIconTextures[6];
 GLuint fileIconTextures[2];
-
-int maxSourceFiles = 20;
-vector<vector<SourceFile>> sourceFiles;
-
-SourceFile* currentSourceFile = nullptr;
 
 char textBuffer[256 * 256] = "";
 
@@ -47,22 +38,7 @@ Game::Game()
       Keys(),
       camera(0.0f, 0.0f, 1.0f)
 { 
-    int i = 0;
-
-    for (int y = 0; y < 4; y++) {
-        
-        vector<SourceFile> row;
-        
-        for (int x = 0; x < 5; x++) {
-
-            string filename = "file" + std::to_string(i + 1) + ".asm";
-            row.push_back(SourceFile(filename, x, y));
-
-            i++;
-        }
-
-        sourceFiles.push_back(row);
-    }
+    workstation.Create();
 }
 
 Game::~Game()
@@ -82,14 +58,13 @@ void Game::Create(GLFWwindow *window, unsigned int width, unsigned int height)
     sprite.Create(&ourShader, "assets/sprites/test.csv", 16, 16, "assets/sprites/arthax.png");
 //    sprite.depthOffset = 0.1f;
 
-//    ourModel = new Model("assets/backpack/backpack.obj");
-
-    ourModel = new Model("assets/probe/probe.obj");
+    probe.Create(&ourShader);
+    skybox.Create(&ourShader);
 
     projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);   
 
-    camera.pos.x = mapCenter.x;
-    camera.pos.y = mapCenter.y;
+    camera.pos.x = 0.0f;
+    camera.pos.y = 0.0f;
     camera.pos.z -= 9.0f;
 
     int numToolIcons = 6;
@@ -124,7 +99,9 @@ void Game::Destroy()
 
 void Game::Update(float dt)
 {
+    probe.Update(dt);
     camera.Update();
+    skybox.Update(&camera, dt);
 
     UpdateGUI();
 
@@ -177,6 +154,8 @@ void Game::UpdateGUI() {
         ImVec2 large_pane_size = ImVec2(large_pane_width, height);
         ImGui::BeginChild("IDE", large_pane_size, true);
 
+        ImGui::Text("Gain: %.3f", probe.attitudeControlModule.signalStrength);
+
         // Begin ImGui window
 //        ImGui::Begin("Epoch IDE", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
@@ -196,6 +175,8 @@ void Game::UpdateGUI() {
         // Create a container to hold the small panes vertically
         ImVec2 small_pane_size = ImVec2(ImGui::GetWindowSize().x - large_pane_width - (borderSize * 3.0f), small_pane_height);
 
+        ImGui::SetNextWindowBgAlpha(0.75f);
+
         // First small pane
         ImGui::BeginChild("SmallPane1", small_pane_size, true);
         ImGui::EndChild();
@@ -204,6 +185,7 @@ void Game::UpdateGUI() {
         ShowToolIcons(small_pane_size.x, space_between_panes - (borderSize * 2));
 
         // Second small pane
+        ImGui::SetNextWindowBgAlpha(0.75f);
         ImGui::BeginChild("SmallPane2", small_pane_size, true);
 
         ShowIconGrid();
@@ -213,9 +195,9 @@ void Game::UpdateGUI() {
         char buf1[64] = "";
         //ImGui::InputText("##", buf1, 64);
 
-        if (currentSourceFile) {
+        if (workstation.currentSourceFile) {
             // TODO: This doesn't need to happen every frame...
-            strcpy(buf1, currentSourceFile->filename.c_str());
+            strcpy(buf1, workstation.currentSourceFile->filename.c_str());
         }
 
         ImGui::InputText("##", buf1, 64);
@@ -232,38 +214,38 @@ void Game::UpdateGUI() {
 void LoadCurrentSourceFile() {
 
     // Load the source file's text.
-    strcpy(textBuffer, currentSourceFile->contents.c_str());
+    strcpy(textBuffer, workstation.currentSourceFile->contents.c_str());
 }
 
 void RestoreCurrentSourceFile() {
 
-    if (currentSourceFile == nullptr)
+    if (workstation.currentSourceFile == nullptr)
         return;
 
-    currentSourceFile->RevertContents();
+    workstation.currentSourceFile->RevertContents();
     LoadCurrentSourceFile();
 }
 
 void SaveCurrentSourceFile() {
 
-    if (currentSourceFile == nullptr)
+    if (workstation.currentSourceFile == nullptr)
         return;
 
     // Load the source file's text.
-    currentSourceFile->contents = textBuffer;
+    workstation.currentSourceFile->contents = textBuffer;
 
-    currentSourceFile->SaveContents();
+    workstation.currentSourceFile->SaveContents();
 }
 
 void SelectSourceFile(int x, int y) {
 
     // Save the current file's text.
-    if (currentSourceFile != nullptr) {
-        currentSourceFile->contents = textBuffer;
+    if (workstation.currentSourceFile != nullptr) {
+        workstation.currentSourceFile->contents = textBuffer;
     }
 
     // Select the new file.
-    currentSourceFile = &sourceFiles[y][x];
+    workstation.currentSourceFile = &workstation.sourceFiles[y][x];
 
     LoadCurrentSourceFile();
 }
@@ -271,6 +253,15 @@ void SelectSourceFile(int x, int y) {
 void DiscardChanges() {
 
 
+}
+
+void BuildAndTransmit() {
+
+    if (workstation.BuildCurrentSourceFile()) {
+
+        // Build succesful, begin transmit.
+        probe.Receive(workstation.image, workstation.imageSize);
+    }
 }
 
 void ShowToolIcons(int small_pane_size, int height) {
@@ -291,7 +282,9 @@ void ShowToolIcons(int small_pane_size, int height) {
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offsetX);
 
     ImGui::PushID(0);
-    ImGui::ImageButton((void*)(intptr_t)toolIconTextures[2], iconSize);
+    if (ImGui::ImageButton((void*)(intptr_t)toolIconTextures[2], iconSize)) {
+        BuildAndTransmit();
+    }
     ImGui::PopID();
 
     // Receive
@@ -342,7 +335,7 @@ void ShowIconGrid() {
             ImGui::PushID(i);
 
             bool isSelected = false;
-            if (currentSourceFile != nullptr && currentSourceFile->x == x && currentSourceFile->y == y) {
+            if (workstation.currentSourceFile != nullptr && workstation.currentSourceFile->x == x && workstation.currentSourceFile->y == y) {
                 ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.6f, 0.6f, 1.0f, 1.0f));
                 isSelected = true;
             }
@@ -373,6 +366,7 @@ void ShowIconGrid() {
 
 void Game::ProcessInput(float dt)
 {
+    /*
     glm::vec3 dir{};
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -388,8 +382,9 @@ void Game::ProcessInput(float dt)
     if (glm::length(dir) > 0.0f) {
         dir = glm::normalize(dir);
     }
-
+    
     camera.ProcessInput(dir, zoom, dt);
+    */
 }
 
 void Game::Scroll(double x, double y)
@@ -397,27 +392,11 @@ void Game::Scroll(double x, double y)
     zoom = y;
 }
 
-
 void Game::Render()
 {
     ourShader.setMatrix("view", camera.view);
     ourShader.setMatrix("projection", projection);
 
-    // render the loaded model
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(mapCenter.x, mapCenter.y, -10.0f)); // translate it down so it's at the center of the scene
-    model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
-   
-    // 2. Rotation: Rotate the mesh around the Y-axis by 45 degrees
-    float angle = glm::radians(-45.0f);  // Convert angle to radians
-    glm::vec3 axis(1.0f, 0.0f, 0.0f);  // Y-axis
-    model = glm::rotate(model, angle, axis);
-    
-    angle = glm::radians(180.0f);  // Convert angle to radians
-    axis = glm::vec3(0.0f, 1.0f, 0.0f);  // Y-axis
-    model = glm::rotate(model, angle, axis);
-
-    ourShader.setMatrix("model", model);
-
-    ourModel->Draw(ourShader);
+    probe.Render();
+    skybox.Render();
 }

@@ -116,11 +116,17 @@
     <ClCompile Include="src\Engine\Texture.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Epoch\probe.cpp">
-      <Filter>Source Files\Epoch</Filter>
-    </ClCompile>
     <ClCompile Include="src\Epoch\workstation.cpp">
       <Filter>Source Files\Epoch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Epoch\skybox.cpp">
+      <Filter>Source Files\Epoch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Epoch\Probe\AttitudeControlModule.cpp">
+      <Filter>Source Files\Epoch\Probe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Epoch\Probe\probe.cpp">
+      <Filter>Source Files\Epoch\Probe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -214,11 +220,20 @@
     <ClInclude Include="src\Engine\Texture.h">
       <Filter>Source Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\Epoch\probe.h">
-      <Filter>Source Files\Epoch</Filter>
-    </ClInclude>
     <ClInclude Include="src\Epoch\workstation.h">
       <Filter>Source Files\Epoch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Epoch\skybox.h">
+      <Filter>Source Files\Epoch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Epoch\Probe\AttitudeControlModule.h">
+      <Filter>Source Files\Epoch\Probe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Epoch\Probe\probe.h">
+      <Filter>Source Files\Epoch\Probe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Epoch\Probe\MemoryMap.h">
+      <Filter>Source Files\Epoch\Probe</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

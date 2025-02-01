@@ -5,6 +5,7 @@
 #include <signal.h>
 #include <Windows.h>
 #include <conio.h>
+#include <thread>
 
 #define MEMORY_MAX (1 << 16)
 unsigned short memory[MEMORY_MAX];
@@ -85,6 +86,23 @@ void log(const char* message)
 unsigned short swap16(unsigned short x)
 {
 	return (x << 8) | (x >> 8);
+}
+
+void read_image(unsigned short* image, bool useOrigin, unsigned short* progMem)
+{
+	/* the origin tells us where in memory to place the image */
+	unsigned short origin = image[0];
+
+	if (!useOrigin) {
+		progMem[0] = origin;
+		origin = 1;
+	}
+
+	/* we know the maximum file size so we only need one fread */
+	unsigned short max_read = (1 << 16) - origin - 1;
+
+	unsigned short* p = progMem + origin;
+	memcpy(p, &image[1], max_read);
 }
 
 void read_image_file(FILE* file, bool useOrigin, unsigned short* progMem)
@@ -318,7 +336,7 @@ void op_sti() {
 	unsigned short addr = reg[R_PC] + sext(pcOffset, 9);
 	unsigned short val = (instr >> 9) & 0x7;
 
-	mem_write(addr, reg[val]);
+	mem_write(mem_read(addr), reg[val]);
 }
 
 void op_str() {
@@ -507,12 +525,28 @@ void exec_instr(unsigned short cur_instr) {
 	}
 }
 
-int vm_main(char* imageFilename)
+void vm_run(unsigned short* image)
+{
+	signal(SIGINT, handle_interrupt);
+	disable_input_buffering();
+
+	read_image(image, true, memory);
+
+	std::thread t(vm_main);
+	t.detach();
+}
+
+int vm_run_from_file(char* imageFilename)
 {
 	signal(SIGINT, handle_interrupt);
 	disable_input_buffering();
 
 	read_image("assets\\programs\\2048.obj", true, memory);
+
+	return vm_main();
+}
+
+int vm_main() {
 
 	reg[R_COND] = FL_ZRO;
 
@@ -524,6 +558,10 @@ int vm_main(char* imageFilename)
 		// FETCH
 
 		unsigned short cur_instr = mem_read(reg[R_PC]++);
+
+		if (cur_instr == 0)
+			break;
+
 		exec_instr(cur_instr);
 
 		log("\n");
@@ -532,4 +570,25 @@ int vm_main(char* imageFilename)
 	restore_input_buffering();
 
 	return 0;
+}
+
+bool vm_read_memory(unsigned short status_addr, unsigned short addr, unsigned short& value)
+{
+	if (memory[status_addr] == 1) {
+		memory[status_addr] = 0;
+
+		value = memory[addr];
+
+		return true;
+	}
+
+	value = 0;
+	return false;
+}
+
+void vm_write_memory(unsigned short status_addr, unsigned short addr, unsigned short value)
+{
+	memory[status_addr] = 1;
+
+	memory[addr] = value;
 }

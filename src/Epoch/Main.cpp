@@ -90,7 +90,6 @@ int main(void)
     // Clear the image buffer.
     memset(&image, 0, sizeof(image));
 
-    std::vector<Line> programLines;
     vm_assemble(writtenAsm, image, imageSize, programLines);// testImage);
     */
 

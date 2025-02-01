@@ -19,4 +19,4 @@ public:
     unsigned short firstInstWord = 0;
 };
 
-void vm_assemble(char* program, unsigned short* image, unsigned short& imageSize, std::vector<Line>& programLines, unsigned short* testImage = nullptr);
+void vm_assemble(const char* program, unsigned short* image, unsigned short& imageSize, unsigned short* testImage = nullptr);

@@ -147,8 +147,10 @@
     <ClCompile Include="src\Epoch\Dialog\Dialog.cpp" />
     <ClCompile Include="src\Epoch\Game.cpp" />
     <ClCompile Include="src\Epoch\main.cpp" />
+    <ClCompile Include="src\Epoch\Probe\AttitudeControlModule.cpp" />
+    <ClCompile Include="src\Epoch\Probe\probe.cpp" />
+    <ClCompile Include="src\Epoch\skybox.cpp" />
     <ClCompile Include="src\Epoch\workstation.cpp" />
-    <ClCompile Include="src\Epoch\probe.cpp" />
     <ClCompile Include="src\Epoch\source_file.cpp" />
     <ClCompile Include="src\Epoch\sprite.cpp" />
     <ClCompile Include="src\Epoch\VM\assembler.cpp" />
@@ -182,8 +184,11 @@
     <ClInclude Include="src\Engine\vendor\imgui\imstb_truetype.h" />
     <ClInclude Include="src\Epoch\Dialog\Dialog.h" />
     <ClInclude Include="src\Epoch\Game.h" />
+    <ClInclude Include="src\Epoch\Probe\AttitudeControlModule.h" />
+    <ClInclude Include="src\Epoch\Probe\MemoryMap.h" />
+    <ClInclude Include="src\Epoch\Probe\probe.h" />
+    <ClInclude Include="src\Epoch\skybox.h" />
     <ClInclude Include="src\Epoch\workstation.h" />
-    <ClInclude Include="src\Epoch\probe.h" />
     <ClInclude Include="src\Epoch\source_file.h" />
     <ClInclude Include="src\Epoch\sprite.h" />
     <ClInclude Include="src\Epoch\VM\assembler.h" />

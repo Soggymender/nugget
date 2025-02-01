@@ -102,7 +102,7 @@ public:
 
 unsigned short pc = 0;
 
-void generateSymbolTable(char* program, vector<Line>& programLines);
+void generateSymbolTable(const char* program, vector<Line>& programLines);
 
 std::string unescape(const std::string& str) {
 
@@ -274,11 +274,17 @@ void HandleLabel(Line& line, unsigned short* image, unsigned short& imageSize, v
 void HandleSpecial(Line& line, unsigned short* image, unsigned short& imageSize, vector<Line>& programLines, unsigned short* testImage);
 
 
-void vm_assemble(char* program, unsigned short* image, unsigned short& imageSize, vector<Line>& programLines, unsigned short* testImage)
+void vm_assemble(const char* program, unsigned short* image, unsigned short& imageSize, unsigned short* testImage)
 {
+    std::vector<Line> programLines;
+
+    // Clear the image buffer.
+    memset(image, 0, sizeof(image));
+
 	generateSymbolTable(program, programLines);
 
     // Setup register index look-up.
+    registerIndices["R0"] = 0;
     registerIndices["R1"] = 1;
     registerIndices["R2"] = 2;
     registerIndices["R3"] = 3;
@@ -312,7 +318,7 @@ void vm_assemble(char* program, unsigned short* image, unsigned short& imageSize
 
     pc = startingAddress;
 
-    cout << "\n\n\n";
+//    cout << "\n\n\n";
 
     for (Line& line : programLines)
     {
@@ -444,8 +450,20 @@ void HandleOpcode(Line& line, unsigned short* image, unsigned short& imageSize, 
     else if (!line.words[0].compare("LD")) {
 
         unsigned short dr = registerIndices[line.words[1]];
-        unsigned short address = symbolTable[line.words[2]].address;
-        unsigned short pcOffset = address - (pc + 1);
+        
+        unsigned short pcOffset = 0;
+        string valString = line.words[2].substr(1);
+        if (line.words[2][0] == '#') {
+            pcOffset = stoi(valString);
+        }
+        else if (line.words[2][0] == 'x') {
+            pcOffset = stoi(valString, nullptr, 16);
+        }
+        else {
+            unsigned short address = symbolTable[line.words[2]].address;
+            pcOffset = address - (pc + 1);
+        }
+        
         unsigned short pcOffset9 = zext(pcOffset, 9);
 
         // Encode.
@@ -572,7 +590,8 @@ void HandleOpcode(Line& line, unsigned short* image, unsigned short& imageSize, 
 
         unsigned short sr = registerIndices[line.words[1]];
 
-        unsigned short pcOffset = symbolTable[line.words[2]].address - (pc + 1);
+        Line& otherLine = symbolTable[line.words[2]];
+        unsigned short pcOffset = otherLine.address - (pc + 1);
         unsigned short pcOffset9 = zext(pcOffset, 9);
 
         // Encode.
@@ -607,12 +626,30 @@ void HandleOpcode(Line& line, unsigned short* image, unsigned short& imageSize, 
         image[imageSize++] = (0b1110 << 12) | (dr << 9) | (0x1FF & pcOffset9);
     }
     else if (!line.words[0].compare("TRAP")) {
-        image[imageSize++];
+
+        /*
+        "GETC",     // x20
+        "OUT",      // x21
+        "PUTS",     // x22
+        "IN",       // x23
+        "PUTSP",    // x24
+        "HALT",     // x25
+        */
+
+        unsigned short trapCode = 0;
+        string valString = line.words[1].substr(1);
+        if (line.words[1][0] == 'x') {
+            trapCode = stoi(valString, nullptr, 16);
+        }
+
+        image[imageSize++] = (0b1111 << 12) | (trapCode & 0xFF);
     }
 }
 
 void HandleTrapRoutine(Line& line, unsigned short* image, unsigned short& imageSize, vector<Line>& programLines, unsigned short* testImage)
 {
+    // Trap codes can specify opcode TRAP and be handled as an opcode, or
+    // use the keyword directly.
     if (!line.words[0].compare("GETC")) {
         image[imageSize++] = (0b1111 << 12) | (0x20 & 0xFF);
     } else if (!line.words[0].compare("OUT")) {
@@ -752,7 +789,7 @@ int CountInstWords(vector<string> words)
     return (int)words.size();
 }
     
-void generateSymbolTable(char* program, vector<Line>& programLines)
+void generateSymbolTable(const char* program, vector<Line>& programLines)
 {
     string newline = "\n";
     string whitespace = " \t,";
