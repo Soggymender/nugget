@@ -16,6 +16,7 @@ float random(vec2 uv)
     return fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
 }
 
+/*
 void main()
 {
    // Create random noise based on UV coordinates
@@ -40,8 +41,9 @@ void main()
         // Blend the static effect with the texture, scaling the static intensity
         FragColor = vec4(textureColor.rgb * (1.0 - staticIntensity) + staticEffect, textureColor.a);
     }
+}*/
+
+void main()
+{
+    FragColor = texture(ourTexture, TexCoord);
 }
-//void main()
-//{
-//    FragColor = texture(ourTexture, TexCoord);
-//}

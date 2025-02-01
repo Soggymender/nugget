@@ -155,13 +155,6 @@
     <ClCompile Include="src\Epoch\sprite.cpp" />
     <ClCompile Include="src\Epoch\VM\assembler.cpp" />
     <ClCompile Include="src\Epoch\VM\vm.cpp" />
-    <ClCompile Include="src\Nug\BehaviorTree.cpp" />
-    <ClCompile Include="src\Nug\Game.cpp" />
-    <ClCompile Include="src\Nug\main_alt.cpp" />
-    <ClCompile Include="src\Nug\npc.cpp" />
-    <ClCompile Include="src\Nug\sprite.cpp" />
-    <ClCompile Include="src\Nug\tileMap.cpp" />
-    <ClCompile Include="src\Nug\tileset.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Camera.h" />
@@ -193,12 +186,6 @@
     <ClInclude Include="src\Epoch\sprite.h" />
     <ClInclude Include="src\Epoch\VM\assembler.h" />
     <ClInclude Include="src\Epoch\VM\vm.h" />
-    <ClInclude Include="src\Nug\BehaviorTree.h" />
-    <ClInclude Include="src\Nug\Game.h" />
-    <ClInclude Include="src\Nug\npc.h" />
-    <ClInclude Include="src\Nug\sprite.h" />
-    <ClInclude Include="src\Nug\tileMap.h" />
-    <ClInclude Include="src\Nug\tileset.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glfw3.dll" />

@@ -29,7 +29,9 @@ public:
     void Destroy();
 
     void ProcessInput(float dt);
+    void Cursor(double x, double y);
     void Scroll(double x, double y);
+    void KeyDown(int key, int scancode, int action);
 
     void Update(float dt);
     void UpdateGUI();

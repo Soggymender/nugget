@@ -31,6 +31,9 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 const unsigned int SCR_WIDTH = 1600;
 const unsigned int SCR_HEIGHT = 900;
 
+double cursorLastX;
+double cursorLastY;
+
 float deltaTime = 0.0f;	// Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 
@@ -51,12 +54,19 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-
+    blarg.Cursor(xpos - cursorLastX, ypos - cursorLastY);
+    cursorLastX = xpos;
+    cursorLastY = ypos;
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     blarg.Scroll(xoffset, yoffset);
+}
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) 
+{
+    blarg.KeyDown(key, scancode, action);
 }
 
 extern unordered_map<string, unsigned short> registerIndices;
@@ -152,10 +162,12 @@ int main(void)
     }
 
     // Input callbacks.
+
+    glfwGetCursorPos(window, &cursorLastX, &cursorLastY);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
-
+    glfwSetKeyCallback(window, key_callback);
 
 
 

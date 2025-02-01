@@ -23,6 +23,8 @@ Sprite sprite;
    
 glm::mat4 projection;
 
+bool camControl = false;
+glm::vec3 camOrient;
 float zoom = 0.0f;
 
 const unsigned int SCR_WIDTH = 1600;
@@ -366,30 +368,53 @@ void ShowIconGrid() {
 
 void Game::ProcessInput(float dt)
 {
-    /*
     glm::vec3 dir{};
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        dir += camera.up;
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        dir += -camera.up;
-    
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        dir += -camera.right;
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        dir += camera.right;   
+    if (camControl)
+    {
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+            dir += camera.up;
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+            dir += -camera.up;
 
-    if (glm::length(dir) > 0.0f) {
-        dir = glm::normalize(dir);
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+            dir += -camera.right;
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+            dir += camera.right;
+
+        if (glm::length(dir) > 0.0f) {
+            dir = glm::normalize(dir);
+        }
     }
-    
-    camera.ProcessInput(dir, zoom, dt);
-    */
+
+    camera.ProcessInput(dir, camOrient, zoom, dt);
+}
+
+void Game::Cursor(double x, double y)
+{
+    if (camControl) {
+
+        camOrient.y += x * 0.001f; // Cursor X rotates around Y axis.
+        camOrient.x += y * 0.001f; // Cursor Y rotates around X axis;
+    }
 }
 
 void Game::Scroll(double x, double y)
 {
-    zoom = y;
+    zoom += y;
+}
+
+void Game::KeyDown(int key, int scancode, int action)
+{
+    if (key == GLFW_KEY_TAB && action == GLFW_RELEASE) {
+
+        camControl = !camControl;
+
+        if (camControl)
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        else
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
 }
 
 void Game::Render()

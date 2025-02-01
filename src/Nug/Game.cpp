@@ -19,6 +19,7 @@ glm::mat4 projection;
 
 Model* ourModel;
 
+glm::vec3 camOrient;
 float zoom = 0.0f;
 
 glm::vec3 mapCenter;
@@ -99,14 +100,19 @@ void Game::ProcessInput(float dt)
         dir = glm::normalize(dir);
     }
 
-    camera.ProcessInput(dir, zoom, dt);
+    camera.ProcessInput(dir, camOrient, zoom, dt);
+}
+
+void Game::Cursor(double x, double y)
+{
+    camOrient.y += x;
+    camOrient.x += y;
 }
 
 void Game::Scroll(double x, double y)
 {
     zoom = y;
 }
-
 
 void Game::Render()
 {

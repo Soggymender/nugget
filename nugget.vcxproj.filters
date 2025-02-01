@@ -27,9 +27,6 @@
     <Filter Include="Source Files\Epoch\Dialog">
       <UniqueIdentifier>{9f9f001b-97ab-4e2c-909f-092f85a9d692}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Nug">
-      <UniqueIdentifier>{13994b3e-df27-4190-9a8f-2403d2237f2e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\vendor\glad\glad.c">
@@ -85,27 +82,6 @@
     </ClCompile>
     <ClCompile Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3.cpp">
       <Filter>Source Files\Engine\Vendor</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Nug\BehaviorTree.cpp">
-      <Filter>Source Files\Nug</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Nug\Game.cpp">
-      <Filter>Source Files\Nug</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Nug\main_alt.cpp">
-      <Filter>Source Files\Nug</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Nug\npc.cpp">
-      <Filter>Source Files\Nug</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Nug\sprite.cpp">
-      <Filter>Source Files\Nug</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Nug\tileMap.cpp">
-      <Filter>Source Files\Nug</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Nug\tileset.cpp">
-      <Filter>Source Files\Nug</Filter>
     </ClCompile>
     <ClCompile Include="src\Epoch\VM\assembler.cpp">
       <Filter>Source Files\Epoch\VM</Filter>
@@ -178,9 +154,6 @@
     <ClInclude Include="src\Epoch\VM\vm.h">
       <Filter>Source Files\Epoch\VM</Filter>
     </ClInclude>
-    <ClInclude Include="src\Epoch\Game.h">
-      <Filter>Source Files\Epoch</Filter>
-    </ClInclude>
     <ClInclude Include="src\Epoch\sprite.h">
       <Filter>Source Files\Epoch</Filter>
     </ClInclude>
@@ -192,24 +165,6 @@
     </ClInclude>
     <ClInclude Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3_loader.h">
       <Filter>Source Files\Engine\Vendor</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Nug\BehaviorTree.h">
-      <Filter>Source Files\Nug</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Nug\Game.h">
-      <Filter>Source Files\Nug</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Nug\npc.h">
-      <Filter>Source Files\Nug</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Nug\sprite.h">
-      <Filter>Source Files\Nug</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Nug\tileMap.h">
-      <Filter>Source Files\Nug</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Nug\tileset.h">
-      <Filter>Source Files\Nug</Filter>
     </ClInclude>
     <ClInclude Include="src\Epoch\VM\assembler.h">
       <Filter>Source Files\Epoch\VM</Filter>
@@ -234,6 +189,9 @@
     </ClInclude>
     <ClInclude Include="src\Epoch\Probe\MemoryMap.h">
       <Filter>Source Files\Epoch\Probe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Epoch\Game.h">
+      <Filter>Source Files\Epoch</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -35,5 +35,5 @@ void Skybox::Render()
 
     shader->setMatrix("model", modelSpace);
 
- //   model->Draw(*shader);
+    model->Draw(*shader);
 }

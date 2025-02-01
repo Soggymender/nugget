@@ -29,6 +29,7 @@ public:
     void Destroy();
 
     void ProcessInput(float dt);
+    void Cursor(double x, double y);
     void Scroll(double x, double y);
 
     void Update(float dt);
