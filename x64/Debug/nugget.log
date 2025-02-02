@@ -7,15 +7,21 @@ C:\development\c++\nugget\src\Epoch\Game.cpp(274,21): warning C4244: 'initializi
 C:\development\c++\nugget\src\Epoch\Game.cpp(276,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 C:\development\c++\nugget\src\Epoch\Game.cpp(279,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\development\c++\nugget\src\Epoch\Game.cpp(279,21): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\development\c++\nugget\src\Epoch\Game.cpp(394,26): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+C:\development\c++\nugget\src\Epoch\Game.cpp(397,26): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\development\c++\nugget\src\Epoch\Game.cpp(395,26): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+C:\development\c++\nugget\src\Epoch\Game.cpp(398,26): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\development\c++\nugget\src\Epoch\Game.cpp(401,13): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\development\c++\nugget\src\Epoch\Game.cpp(404,13): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  probe.cpp
+  skybox.cpp
+  sprite.cpp
+C:\development\c++\nugget\src\Epoch\sprite.cpp(88,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\development\c++\nugget\src\Epoch\sprite.cpp(89,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
   nugget.vcxproj -> C:\development\c++\nugget\x64\Debug\nugget.exe

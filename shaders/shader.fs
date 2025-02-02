@@ -6,16 +6,41 @@ in vec2 TexCoord;
 
 uniform sampler2D ourTexture;
 
+uniform float pixelationIntensity;  // Controls the intensity of the pixelation (higher = more pixelated)
+uniform float noiseAmount;
+
 uniform float u_intensity;  // Input parameter to control the static
 uniform sampler2D screenTexture;  // The input texture, e.g., the screen or background texture
 
 uniform float time;  // The time passed since the start of the program
 
-float random(vec2 uv)
-{
-    return fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
+float rand(vec2 co){
+    return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
 }
 
+/*
+void main()
+{
+    vec2 uv = TexCoord;
+
+    // Determine the size of the blocks based on pixelation intensity
+    float blockSize = pixelationIntensity * 100.0; // Larger values = bigger blocks
+ 
+ 
+    vec2 quantizedUv = floor(uv * blockSize) / blockSize;
+
+    // Sample the texture at the quantized coordinates
+    vec4 color = texture(ourTexture, quantizedUv);
+
+    // Add some random noise to the color (this simulates a corrupted signal)
+    float noise = rand(quantizedUv + vec2(uv.x, uv.y)) * noiseAmount;
+
+    // Apply the noise to the color (the higher the noiseAmount, the more noisy the effect)
+    color.rgb += noise;
+
+    FragColor = color;
+}
+*/
 /*
 void main()
 {
@@ -45,5 +70,8 @@ void main()
 
 void main()
 {
-    FragColor = texture(ourTexture, TexCoord);
+    vec2 newUV = floor(TexCoord * 640.0 / 10.0) / 640.0 * 10.0;
+
+
+    FragColor = texture(ourTexture, newUV);
 }

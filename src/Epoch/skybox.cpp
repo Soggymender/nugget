@@ -32,6 +32,7 @@ void Skybox::Render()
     glm::vec3 axis = glm::vec3(0.0f, 1.0f, 0.0f);  // Y-axis
     modelSpace = glm::rotate(modelSpace, angle, axis);
 
+    shader->use();
 
     shader->setMatrix("model", modelSpace);
 

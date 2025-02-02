@@ -105,7 +105,7 @@ void Game::Update(float dt)
     camera.Update();
     skybox.Update(&camera, dt);
 
-    UpdateGUI();
+  //  UpdateGUI();
 
     zoom = 0;
 }
@@ -419,6 +419,8 @@ void Game::KeyDown(int key, int scancode, int action)
 
 void Game::Render()
 {
+    ourShader.use();
+
     ourShader.setMatrix("view", camera.view);
     ourShader.setMatrix("projection", projection);
 

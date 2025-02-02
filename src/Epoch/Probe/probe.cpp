@@ -66,6 +66,16 @@ void Probe::Render()
     axis = glm::vec3(0.0f, 1.0f, 0.0f);  // Y-axis
     modelSpace = glm::rotate(modelSpace, angle, axis);
 
+//    uniform float pixelationIntensity;  // Controls the intensity of the pixelation (higher = more pixelated)
+//    uniform float noiseAmount;
+
+    shader->use();
+
+
+    shader->setFloat("pixelationIntensity", 0.5f);// 1.0f - attitudeControlModule.signalStrength);
+    shader->setFloat("noiseAmount", 1.0f - attitudeControlModule.signalStrength);
+
+
     shader->setFloat("u_intensity", 1.0f - attitudeControlModule.signalStrength);
     shader->setFloat("time", 1.0f - attitudeControlModule.signalStrength);
     shader->setMatrix("model", modelSpace);

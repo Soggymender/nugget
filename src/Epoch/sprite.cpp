@@ -118,6 +118,8 @@ void Sprite::Update(float deltaTime)
 
 void Sprite::Render()
 {
+    mesh.shader->use();
+
     mesh.shader->setMatrix("model", model);
     mesh.Render();
 }

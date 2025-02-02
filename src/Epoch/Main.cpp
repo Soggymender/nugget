@@ -191,25 +191,11 @@ int main(void)
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    // Load Fonts
-    // - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
-    // - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
-    // - If the file cannot be loaded, the function will return NULL. Please handle those errors in your application (e.g. use an assertion, or display an error and quit).
-    // - The fonts will be rasterized at a given size (w/ oversampling) and stored into a texture when calling ImFontAtlas::Build()/GetTexDataAsXXXX(), which ImGui_ImplXXXX_NewFrame below will call.
-    // - Use '#define IMGUI_ENABLE_FREETYPE' in your imconfig file to use Freetype for higher quality font rendering.
-    // - Read 'docs/FONTS.md' for more instructions and details.
-    // - Remember that in C/C++ if you want to include a backslash \ in a string literal you need to write a double backslash \\ !
-    // - Our Emscripten build process allows embedding fonts to be accessible at runtime from the "fonts/" folder. See Makefile.emscripten for details.
-    //io.Fonts->AddFontDefault();
-    //io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf", 18.0f);
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf", 16.0f);
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
-    //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
-    //IM_ASSERT(font != NULL);
-
     blarg.Create(window, SCR_WIDTH, SCR_HEIGHT);
 
+    // Screen shader.
+    Shader screenShader;
+    screenShader.Create("shaders/screen.vs", "shaders/screen.fs");
 
     glEnable(GL_DEPTH_TEST);
 
@@ -218,34 +204,122 @@ int main(void)
 
 
 
+    // Setup frame buffer
+    unsigned int framebuffer;
+    glGenFramebuffers(1, &framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+    // Setup render texture
+    unsigned int textureColorbuffer;
+    glGenTextures(1, &textureColorbuffer);
+    glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    // attach it to currently bound framebuffer object
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
+
+    // Setup render buffer
+    unsigned int rbo;
+    glGenRenderbuffers(1, &rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCR_WIDTH, SCR_HEIGHT);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+    // Attach
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
+    // Validate
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+        std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    // Create a full screen quad and VAO
+    GLuint screenVao, screenVbo;
+
+    GLuint vao, vbo;
+
+    // Define the vertices for a full-screen quad (in NDC coordinates)
+    float vertices[] = {
+        // Position         // UV Coordinates
+        -1.0f, -1.0f,      0.0f, 0.0f,  // Bottom-left
+         1.0f, -1.0f,      1.0f, 0.0f,  // Bottom-right
+        -1.0f,  1.0f,      0.0f, 1.0f,  // Top-left
+         1.0f,  1.0f,      1.0f, 1.0f   // Top-right
+    };
+
+    // Generate and bind the VAO
+    glGenVertexArrays(1, &screenVao);
+    glBindVertexArray(screenVao);
+
+    // Generate and bind the VBO
+    glGenBuffers(1, &screenVbo);
+    glBindBuffer(GL_ARRAY_BUFFER, screenVbo);
+
+    // Load the vertex data into the VBO
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // Specify the vertex attribute for position (2 floats)
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // Specify the vertex attribute for UV (2 floats)
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    // Unbind the VAO (optional, for safety)
+    glBindVertexArray(0);
+  
+//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
 
         // Imgui
         // Start the Dear ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
+   //     ImGui_ImplOpenGL3_NewFrame();
+   //     ImGui_ImplGlfw_NewFrame();
 
         processInput(window);
         blarg.ProcessInput(deltaTime);
 
         blarg.Update(deltaTime);
 
+        // Bind the game framebuffer.
+        glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
         // IMGUI Rendering
-        ImGui::Render();
+ //       ImGui::Render();
         int display_w, display_h;
         glfwGetFramebufferSize(window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
 
         // Game Render
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        //glClear(GL_COLOR_BUFFER_BIT);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glEnable(GL_DEPTH_TEST);
 
         blarg.Render();
 
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+//        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+        
+        // Bind the primary framebuffer
+        glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        // Render game to primary.
+        screenShader.use();
+        glBindVertexArray(screenVao);
+        glDisable(GL_DEPTH_TEST);
+        glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+        // Draw all UI elements here.
 
         glfwSwapBuffers(window);
 
