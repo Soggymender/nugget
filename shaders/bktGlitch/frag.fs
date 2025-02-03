@@ -49,7 +49,7 @@ vec4 extractBlue(vec4 col){
 }
 
 // Replacement for the mirror address mode, hopefully nobody needs filtering.
-vec2 mymirror(vec2 v) {
+vec2 mirror(vec2 v) {
     return abs((fract((v * 0.5) + 0.5) * 2.0) - 1.0);
 }
 
@@ -124,20 +124,13 @@ void main()
     
     // Static branch.
     if (((channelShift + dispersion) * intensity) < DELTA) {
-        outColour = texture(texture1, mymirror(offsetCoords));
+        outColour = texture(texture1, mirror(offsetCoords));
     } else {
-        outColour = extractRed(texture(texture1, mymirror(offsetCoords + vec2(shiftFactors.r, 0.0)))) + extractBlue(texture(texture1, mymirror(offsetCoords + vec2(-shiftFactors.g, 0.0)))) + extractGreen(texture(texture1, mymirror(offsetCoords)));
+        outColour = extractRed(texture(texture1, mirror(offsetCoords + vec2(shiftFactors.r, 0.0)))) + extractBlue(texture(texture1, mirror(offsetCoords + vec2(-shiftFactors.g, 0.0)))) + extractGreen(texture(texture1, mirror(offsetCoords)));
     }
     
     // Add noise    
     outColour.rgb *= (vec3(.55, .5, .4) * randomHiFreq.gab * intensity * noiseLevel) + 1.0;
         
     FragColor = v_vColour * outColour;
-    //FragColor = outColour;
-
-    //FragColor = outColour * randomHiFreq;
-
-
-    // outColour = input texture or pixel color.
-    // v_vColour looks white or very light grey.
 }

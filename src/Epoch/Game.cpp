@@ -62,16 +62,21 @@ GLuint createTexture(const int width, const int height)
     std::srand(static_cast<unsigned int>(std::time(0)));
 
     // Fill the array with random values for RGBA channels (0-255)
-    for (int i = 0; i < 256 * 256 * 4; i++) {
+    for (int i = 0; i < 256 * 256 * 4; i += 4) {
+         
+        int val = std::rand() % 256;
         noiseData[i] = std::rand() % 256;
+        noiseData[i + 1] = std::rand() % 256;
+        noiseData[i + 2] = std::rand() % 256;
+        noiseData[i + 3] = std::rand() % 256;
     }
 
     // Upload data to OpenGL texture
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, noiseData);
 
     // Set texture parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
@@ -455,24 +460,51 @@ void Game::KeyDown(int key, int scancode, int action)
 
 void Game::SetScreenUniforms(Shader* screenShader)
 {
-    screenShader->setFloat("intensity", 0.5f);
-    screenShader->setFloat("time", glfwGetTime());
-    screenShader->setVec2("resolution", glm::vec2(SCR_WIDTH, SCR_HEIGHT));
-    screenShader->setFloat("rngSeed", 47);
-    screenShader->setFloat("noiseLevel", 1.0f);
-    
-    screenShader->setTexture("texture2", noiseTexture, 1);
- 
+    static float s = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
     float a = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
     float b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
     float c = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 
+    // Base
+    static float GlitchIntensity = 0.5f;
+    static float GlitchNoiseLevel = 1.0f;
+
+    screenShader->setFloat("intensity", GlitchIntensity);
+    screenShader->setFloat("time", (float)glfwGetTime() * 1000.0f);
+    screenShader->setVec2("resolution", glm::vec2(SCR_WIDTH, SCR_HEIGHT));
+    screenShader->setFloat("rngSeed", s);
+    screenShader->setFloat("noiseLevel", GlitchNoiseLevel);
+    screenShader->setTexture("texture2", noiseTexture, 1);
     screenShader->setVec3("randomValues", glm::vec3(a, b, c));
 
-    screenShader->setFloat("jumbleSpeed", 0.33f);
-    screenShader->setFloat("jumbleShift", 0.2f);
-    screenShader->setFloat("jumbleResolution", 0.2f);
-    screenShader->setFloat("jumbleness", 0.2f);
+    // Jumble
+    static float GlitchJumbleSpeed = 0.15f;
+    static float GlitchJumbleShift = 0.25f;
+    static float GlitchJumbleResolution = 0.15f;
+    static float GlitchJumbleness = 0.25f;
+
+    screenShader->setFloat("jumbleSpeed", GlitchJumbleSpeed);
+    screenShader->setFloat("jumbleShift", GlitchJumbleShift);
+    screenShader->setFloat("jumbleResolution", GlitchJumbleResolution);
+    screenShader->setFloat("jumbleness", GlitchJumbleness);
+    
+    // Color
+    static float GlitchDispersion = 0.05f;
+
+    screenShader->setFloat("dispersion", GlitchDispersion);
+
+    // Line
+    static float GlitchLineSpeed = 0.05f;
+    static float GlitchLineShift = 0.0035f;
+    static float GlitchLineResolution = 0.425f;
+    static float GlitchLineDrift = 0.0f;
+    static float GlitchLineVertShift = 0.0f;
+
+    screenShader->setFloat("lineSpeed", GlitchLineSpeed);
+    screenShader->setFloat("lineShift", GlitchLineShift);
+    screenShader->setFloat("lineResolution", GlitchLineResolution);
+    screenShader->setFloat("lineDrift", GlitchLineDrift);
+    screenShader->setFloat("lineVertShift", GlitchLineVertShift);
 }
 
 void Game::Render()
