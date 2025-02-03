@@ -458,8 +458,30 @@ void Game::KeyDown(int key, int scancode, int action)
 
 
 
+class Range2f {
+public:
+    float min, max;
+
+    Range2f(float min, float max) { this->min = min; this->max = max; }
+    float Map(float weight) { return min + (weight * (max - min)); }
+};
+
 void Game::SetScreenUniforms(Shader* screenShader)
 {
+    // 0.0f = no signal.
+    // 1.0f = perfect signal.
+    float signalStrength = probe.attitudeControlModule.signalStrength;
+
+    /*
+    define min and max for each
+    scale current min and max relative to signal strength.
+    
+    
+    
+    */
+
+
+
     static float s = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
     float a = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
     float b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
@@ -483,25 +505,37 @@ void Game::SetScreenUniforms(Shader* screenShader)
     static float GlitchJumbleResolution = 0.15f;
     static float GlitchJumbleness = 0.25f;
 
+    Range2f GlitchJumblenessRange(0.0f, 0.25f);
+
     screenShader->setFloat("jumbleSpeed", GlitchJumbleSpeed);
     screenShader->setFloat("jumbleShift", GlitchJumbleShift);
     screenShader->setFloat("jumbleResolution", GlitchJumbleResolution);
-    screenShader->setFloat("jumbleness", GlitchJumbleness);
-    
+//    screenShader->setFloat("jumbleness", GlitchJumbleness);
+    screenShader->setFloat("jumbleness", GlitchJumblenessRange.Map(1.0f - signalStrength));
+
     // Color
     static float GlitchDispersion = 0.05f;
+    Range2f GlitchDispersionRange(0.0f, 0.05f);
 
-    screenShader->setFloat("dispersion", GlitchDispersion);
+    screenShader->setFloat("dispersion", GlitchDispersionRange.Map(1.0f - signalStrength));
 
     // Line
-    static float GlitchLineSpeed = 0.05f;
-    static float GlitchLineShift = 0.0035f;
+    static float GlitchLineSpeed = 0.0f;// 0.03f;
+    static float GlitchLineShift = 0.1f;
+
     static float GlitchLineResolution = 0.425f;
     static float GlitchLineDrift = 0.0f;
     static float GlitchLineVertShift = 0.0f;
 
+ //   Range2f GlitchLineSpeedRange(0.0f, 0.001f);
+    Range2f GlitchLineShiftRange(0.0f, 0.05f);
+
+   // screenShader->setFloat("lineSpeed", GlitchLineSpeedRange.Map(1.0f - signalStrength));
+    screenShader->setFloat("lineShift", GlitchLineShiftRange.Map(1.0f - signalStrength));
     screenShader->setFloat("lineSpeed", GlitchLineSpeed);
-    screenShader->setFloat("lineShift", GlitchLineShift);
+  //  screenShader->setFloat("lineShift", GlitchLineShift);
+
+
     screenShader->setFloat("lineResolution", GlitchLineResolution);
     screenShader->setFloat("lineDrift", GlitchLineDrift);
     screenShader->setFloat("lineVertShift", GlitchLineVertShift);
