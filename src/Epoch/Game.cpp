@@ -1,5 +1,7 @@
 #include "game.h"
 
+#include "engine/core.h"
+
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
@@ -48,6 +50,36 @@ Game::~Game()
     
 }
 
+GLuint createTexture(const int width, const int height) 
+{    
+    GLuint textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    unsigned char noiseData[256 * 256 * 4];
+
+    // Seed the random number generator
+    std::srand(static_cast<unsigned int>(std::time(0)));
+
+    // Fill the array with random values for RGBA channels (0-255)
+    for (int i = 0; i < 256 * 256 * 4; i++) {
+        noiseData[i] = std::rand() % 256;
+    }
+
+    // Upload data to OpenGL texture
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, noiseData);
+
+    // Set texture parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    return textureID;
+}
+
+GLuint noiseTexture;
+
 void Game::Create(GLFWwindow *window, unsigned int width, unsigned int height)
 {
     this->window = window;
@@ -92,6 +124,8 @@ void Game::Create(GLFWwindow *window, unsigned int width, unsigned int height)
     for (int i = 0; i < numFileIcons; ++i) {
         fileIconTextures[i] = LoadTextureFromFile(fileIconPaths[i]);
     }
+
+    noiseTexture = createTexture(256, 256);
 }
 
 void Game::Destroy()
@@ -105,7 +139,7 @@ void Game::Update(float dt)
     camera.Update();
     skybox.Update(&camera, dt);
 
-  //  UpdateGUI();
+ //   UpdateGUI();
 
     zoom = 0;
 }
@@ -417,6 +451,30 @@ void Game::KeyDown(int key, int scancode, int action)
     }
 }
 
+
+
+void Game::SetScreenUniforms(Shader* screenShader)
+{
+    screenShader->setFloat("intensity", 0.5f);
+    screenShader->setFloat("time", glfwGetTime());
+    screenShader->setVec2("resolution", glm::vec2(SCR_WIDTH, SCR_HEIGHT));
+    screenShader->setFloat("rngSeed", 47);
+    screenShader->setFloat("noiseLevel", 1.0f);
+    
+    screenShader->setTexture("texture2", noiseTexture, 1);
+ 
+    float a = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+    float b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+    float c = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+
+    screenShader->setVec3("randomValues", glm::vec3(a, b, c));
+
+    screenShader->setFloat("jumbleSpeed", 0.33f);
+    screenShader->setFloat("jumbleShift", 0.2f);
+    screenShader->setFloat("jumbleResolution", 0.2f);
+    screenShader->setFloat("jumbleness", 0.2f);
+}
+
 void Game::Render()
 {
     ourShader.use();
@@ -426,4 +484,10 @@ void Game::Render()
 
     probe.Render();
     skybox.Render();
+}
+
+void Game::RenderHUD()
+{
+
+
 }

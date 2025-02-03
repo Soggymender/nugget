@@ -106,9 +106,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Engine\vendor\glad\glad.h">
-      <Filter>Source Files\Engine\Vendor</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\vendor\GLFW\glfw3.h">
       <Filter>Source Files\Engine\Vendor</Filter>
     </ClInclude>

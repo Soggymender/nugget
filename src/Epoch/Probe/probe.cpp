@@ -71,13 +71,6 @@ void Probe::Render()
 
     shader->use();
 
-
-    shader->setFloat("pixelationIntensity", 0.5f);// 1.0f - attitudeControlModule.signalStrength);
-    shader->setFloat("noiseAmount", 1.0f - attitudeControlModule.signalStrength);
-
-
-    shader->setFloat("u_intensity", 1.0f - attitudeControlModule.signalStrength);
-    shader->setFloat("time", 1.0f - attitudeControlModule.signalStrength);
     shader->setMatrix("model", modelSpace);
 
     model->Draw(*shader);

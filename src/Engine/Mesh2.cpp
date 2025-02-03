@@ -1,6 +1,6 @@
 #include "Mesh2.h"
 
-#include <glad/glad.h> // holds all OpenGL type declarations
+#include "glad/glad.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

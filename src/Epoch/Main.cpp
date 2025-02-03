@@ -1,9 +1,5 @@
 #ifdef GAME_EPOCH
 
-#include "glad/glad.h"
-
-#include "GLFW/glfw3.h"
-
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_glfw.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
@@ -195,7 +191,7 @@ int main(void)
 
     // Screen shader.
     Shader screenShader;
-    screenShader.Create("shaders/screen.vs", "shaders/screen.fs");
+    screenShader.Create("shaders/screen.vs", "shaders/bktGlitch/frag.fs");
 
     glEnable(GL_DEPTH_TEST);
 
@@ -280,8 +276,8 @@ int main(void)
 
         // Imgui
         // Start the Dear ImGui frame
-   //     ImGui_ImplOpenGL3_NewFrame();
-   //     ImGui_ImplGlfw_NewFrame();
+    //    ImGui_ImplOpenGL3_NewFrame();
+      //  ImGui_ImplGlfw_NewFrame();
 
         processInput(window);
         blarg.ProcessInput(deltaTime);
@@ -292,7 +288,7 @@ int main(void)
         glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 
         // IMGUI Rendering
- //       ImGui::Render();
+  //      ImGui::Render();
         int display_w, display_h;
         glfwGetFramebufferSize(window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
@@ -303,9 +299,6 @@ int main(void)
         glEnable(GL_DEPTH_TEST);
 
         blarg.Render();
-
-//        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
         
         // Bind the primary framebuffer
         glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
@@ -314,12 +307,18 @@ int main(void)
 
         // Render game to primary.
         screenShader.use();
+
+        blarg.SetScreenUniforms(&screenShader);
+
         glBindVertexArray(screenVao);
         glDisable(GL_DEPTH_TEST);
-        glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+
+        screenShader.setTexture("texture1", textureColorbuffer, 0);
+
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
         // Draw all UI elements here.
+//        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(window);
 

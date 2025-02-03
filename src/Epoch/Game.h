@@ -1,3 +1,4 @@
+#include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
 #include "engine/camera.h"
@@ -36,6 +37,8 @@ public:
     void Update(float dt);
     void UpdateGUI();
 
+    void SetScreenUniforms(Shader* screenShader);
     void Render();
+    void RenderHUD();
 
 };
