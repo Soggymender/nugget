@@ -85,6 +85,8 @@ GLuint createTexture(const int width, const int height)
 
 GLuint noiseTexture;
 
+Model* computer;
+
 void Game::Create(GLFWwindow *window, unsigned int width, unsigned int height)
 {
     this->window = window;
@@ -131,6 +133,8 @@ void Game::Create(GLFWwindow *window, unsigned int width, unsigned int height)
     }
 
     noiseTexture = createTexture(256, 256);
+
+    computer = new Model("assets/computer/Models/PC.obj");
 }
 
 void Game::Destroy()
@@ -548,9 +552,33 @@ void Game::Render()
     ourShader.setMatrix("view", camera.view);
     ourShader.setMatrix("projection", projection);
 
-    probe.Render();
-    skybox.Render();
+   // probe.Render();
+//    skybox.Render();
+
+    RenderComputer();
 }
+
+void Game::RenderComputer()
+{
+    static glm::vec3 translation = glm::vec3(0.0f, 0.0f, -10.0f);
+
+    // render the loaded model
+    glm::mat4 modelSpace = glm::mat4(1.0f);
+    modelSpace = glm::translate(modelSpace, translation); // translate it down so it's at the center of the scene
+    modelSpace = glm::scale(modelSpace, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+
+    // 2. Rotation: Rotate the mesh around the Y-axis by 45 degrees
+    float angle = glm::radians(0.0f);  // Convert angle to radians
+    glm::vec3 axis(1.0f, 0.0f, 0.0f);  // Y-axis
+    modelSpace = glm::rotate(modelSpace, angle, axis);
+
+    ourShader.use();
+
+    ourShader.setMatrix("model", modelSpace);
+
+    computer->Draw(ourShader);
+}
+
 
 void Game::RenderHUD()
 {

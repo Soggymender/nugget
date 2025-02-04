@@ -133,4 +133,6 @@ void main()
     outColour.rgb *= (vec3(.55, .5, .4) * randomHiFreq.gab * intensity * noiseLevel) + 1.0;
         
     FragColor = v_vColour * outColour;
+
+    FragColor = texture(texture1, v_vTexcoord);
 }

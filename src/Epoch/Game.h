@@ -39,6 +39,7 @@ public:
 
     void SetScreenUniforms(Shader* screenShader);
     void Render();
+    void RenderComputer();
     void RenderHUD();
 
 };
