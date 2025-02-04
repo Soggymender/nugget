@@ -303,7 +303,7 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glEnable(GL_DEPTH_TEST);
 
-        blarg.Render();
+        blarg.RenderSpace();
 
         // Bind the primary framebuffer
         glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default

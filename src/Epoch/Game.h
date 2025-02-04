@@ -21,7 +21,8 @@ public:
 
     Shader ourShader;
 
-    Camera camera;
+    Camera workspaceCamera;
+    Camera spaceCamera;
 
     Game();
    ~Game();
@@ -40,7 +41,7 @@ public:
     void UpdateGUI();
 
     void SetScreenUniforms(Shader* screenShader);
-    void Render();
+    void RenderSpace();
     void RenderWorkstation();
     void RenderHUD();
 

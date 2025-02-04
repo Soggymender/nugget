@@ -25,9 +25,15 @@ Sprite sprite;
    
 glm::mat4 projection;
 
+// Workspace camera.
 bool camControl = false;
-glm::vec3 camOrient;
-float zoom = 0.0f;
+
+glm::vec3 workspaceCamOrient;
+float workspaceCamZoom = 0.0f;
+
+// Space camera.
+glm::vec3 spaceCamOrient;
+float spaceCamZoom = 0.0f;
 
 const unsigned int SCR_WIDTH = 1600;
 const unsigned int SCR_HEIGHT = 900;
@@ -40,7 +46,8 @@ char textBuffer[256 * 256] = "";
 Game::Game() 
     : State(GAME_PLAY), 
       Keys(),
-      camera(0.0f, 0.0f, 1.0f)
+      workspaceCamera(0.0f, 0.0f, 1.0f),
+      spaceCamera(0.0f, 0.0f, 1.0f)
 { 
     workstation.Create();
 }
@@ -104,9 +111,13 @@ void Game::Create(GLFWwindow *window, unsigned int width, unsigned int height)
 
     projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);   
 
-    camera.pos.x = 0.0f;
-    camera.pos.y = 0.0f;
-    camera.pos.z -= 9.0f;
+    workspaceCamera.pos.x = 0.0f;
+    workspaceCamera.pos.y = 0.0f;
+    workspaceCamera.pos.z -= 9.0f;
+
+    spaceCamera.pos.x = 0.0f;
+    spaceCamera.pos.y = 0.0f;
+    spaceCamera.pos.z -= 9.0f;
 
     int numToolIcons = 6;
     const char* toolIconPaths[] = {
@@ -146,18 +157,23 @@ void Game::SetScreenTexture(unsigned int textureId)
 {
     // Dig up the location of the current texture.
 
-    computer->meshes[0].textures[0].id = textureId;
+    // TODO: Find the right texture dynamically.
+    computer->meshes[6].textures[0].id = textureId;
 }
 
 void Game::Update(float dt)
 {
     probe.Update(dt);
-    camera.Update();
-    skybox.Update(&camera, dt);
+
+    workspaceCamera.Update();
+    spaceCamera.Update();
+
+    skybox.Update(&spaceCamera, dt);
 
  //   UpdateGUI();
 
-    zoom = 0;
+    workspaceCamZoom = 0;
+    spaceCamZoom = 0;
 }
 
 void ShowToolIcons(int small_pane_size, int height);
@@ -423,35 +439,38 @@ void Game::ProcessInput(float dt)
     if (camControl)
     {
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            dir += camera.up;
+            dir += workspaceCamera.up;
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            dir += -camera.up;
+            dir += -workspaceCamera.up;
 
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            dir += -camera.right;
+            dir += -workspaceCamera.right;
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            dir += camera.right;
+            dir += workspaceCamera.right;
 
         if (glm::length(dir) > 0.0f) {
             dir = glm::normalize(dir);
         }
     }
 
-    camera.ProcessInput(dir, camOrient, zoom, dt);
+    workspaceCamera.ProcessInput(dir, workspaceCamOrient, workspaceCamZoom, dt);
+    
+    // TODO: Need a way to input-target this camera. Or not since in game it only needs to be controlled by coding.
+    //spaceCamera.ProcessInput(dir, workspaceCamOrient, workspaceCamZoom, dt);
 }
 
 void Game::Cursor(double x, double y)
 {
     if (camControl) {
 
-        camOrient.y += x * 0.001f; // Cursor X rotates around Y axis.
-        camOrient.x += y * 0.001f; // Cursor Y rotates around X axis;
+        workspaceCamOrient.y += x * 0.001f; // Cursor X rotates around Y axis.
+        workspaceCamOrient.x += y * 0.001f; // Cursor Y rotates around X axis;
     }
 }
 
 void Game::Scroll(double x, double y)
 {
-    zoom += y;
+    workspaceCamZoom += y;
 }
 
 void Game::KeyDown(int key, int scancode, int action)
@@ -552,16 +571,16 @@ void Game::SetScreenUniforms(Shader* screenShader)
     screenShader->setFloat("lineVertShift", GlitchLineVertShift);
 }
 
-void Game::Render()
+void Game::RenderSpace()
 {
     ourShader.use();
 
-    ourShader.setMatrix("view", camera.view);
+    ourShader.setMatrix("view", spaceCamera.view);
     ourShader.setMatrix("projection", projection);
 
     probe.Render();
 
-//    skybox.Render();
+    skybox.Render();
 }
 
 void Game::RenderWorkstation()
@@ -579,6 +598,9 @@ void Game::RenderWorkstation()
     modelSpace = glm::rotate(modelSpace, angle, axis);
 
     ourShader.use();
+
+    ourShader.setMatrix("view", workspaceCamera.view);
+    ourShader.setMatrix("projection", projection);
 
     ourShader.setMatrix("model", modelSpace);
 
