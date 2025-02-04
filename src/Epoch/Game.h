@@ -29,6 +29,8 @@ public:
     void Create(GLFWwindow *window, unsigned int width, unsigned int height);
     void Destroy();
 
+    void SetScreenTexture(unsigned int textureId);
+
     void ProcessInput(float dt);
     void Cursor(double x, double y);
     void Scroll(double x, double y);
@@ -39,7 +41,7 @@ public:
 
     void SetScreenUniforms(Shader* screenShader);
     void Render();
-    void RenderComputer();
+    void RenderWorkstation();
     void RenderHUD();
 
 };

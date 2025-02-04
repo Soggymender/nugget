@@ -189,6 +189,8 @@ int main(void)
 
     blarg.Create(window, SCR_WIDTH, SCR_HEIGHT);
 
+
+
     // Screen shader.
     Shader screenShader;
     screenShader.Create("shaders/screen.vs", "shaders/bktGlitch/frag.fs");
@@ -213,6 +215,9 @@ int main(void)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
+
+    // Change the PC monitor's texture.
+    blarg.SetScreenTexture(textureColorbuffer);
 
     // attach it to currently bound framebuffer object
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
@@ -293,17 +298,26 @@ int main(void)
         glfwGetFramebufferSize(window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
 
-        // Game Render
+        // Render Space.
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glEnable(GL_DEPTH_TEST);
 
         blarg.Render();
-        
+
         // Bind the primary framebuffer
         glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+
+        // Render Workstation.
         glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glEnable(GL_DEPTH_TEST);
+
+//        glClear(GL_COLOR_BUFFER_BIT);
+
+        blarg.RenderWorkstation();
+
+        /*
 
         // Render game to primary.
         screenShader.use();
@@ -319,6 +333,7 @@ int main(void)
 
         // Draw all UI elements here.
 //        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        */
 
         glfwSwapBuffers(window);
 

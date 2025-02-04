@@ -142,6 +142,13 @@ void Game::Destroy()
     sprite.Destroy();
 }
 
+void Game::SetScreenTexture(unsigned int textureId)
+{
+    // Dig up the location of the current texture.
+
+    computer->meshes[0].textures[0].id = textureId;
+}
+
 void Game::Update(float dt)
 {
     probe.Update(dt);
@@ -552,13 +559,12 @@ void Game::Render()
     ourShader.setMatrix("view", camera.view);
     ourShader.setMatrix("projection", projection);
 
-   // probe.Render();
-//    skybox.Render();
+    probe.Render();
 
-    RenderComputer();
+//    skybox.Render();
 }
 
-void Game::RenderComputer()
+void Game::RenderWorkstation()
 {
     static glm::vec3 translation = glm::vec3(0.0f, 0.0f, -10.0f);
 
