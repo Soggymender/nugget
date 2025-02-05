@@ -24,8 +24,11 @@ using namespace std;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
-const unsigned int SCR_WIDTH = 1600;
-const unsigned int SCR_HEIGHT = 900;
+//const unsigned int SCR_WIDTH = 1600;
+//const unsigned int SCR_HEIGHT = 900;
+
+const unsigned int SCR_WIDTH = 1280;
+const unsigned int SCR_HEIGHT = 800;
 
 double cursorLastX;
 double cursorLastY;
@@ -309,7 +312,7 @@ int main(void)
         glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
 
         // Render Workstation.
-        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(0.05f, 0.05f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glEnable(GL_DEPTH_TEST);
 
