@@ -12,19 +12,22 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{d1c28fe4-7a48-4320-97c1-dcdf9051692d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Epoch">
-      <UniqueIdentifier>{c76d5947-442c-4ccb-9730-b2af600cfe5e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Engine\Vendor">
       <UniqueIdentifier>{3934a400-8796-4f7d-b581-9bf5a6ae2262}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Epoch\Probe">
+    <Filter Include="Source Files\Games">
+      <UniqueIdentifier>{0c37ba39-4c3a-4223-81f7-5dcb3f24e35d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Games\Epoch">
+      <UniqueIdentifier>{c76d5947-442c-4ccb-9730-b2af600cfe5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Games\Epoch\Probe">
       <UniqueIdentifier>{a4366545-b837-4e57-a399-6b5856f1a6b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Epoch\VM">
+    <Filter Include="Source Files\Games\Epoch\VM">
       <UniqueIdentifier>{8db0c52b-fa3c-4cd1-9826-2c3a381b8dd2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Epoch\Dialog">
+    <Filter Include="Source Files\Games\Epoch\Dialog">
       <UniqueIdentifier>{9f9f001b-97ab-4e2c-909f-092f85a9d692}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -62,47 +65,56 @@
     <ClCompile Include="src\Engine\shader.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Epoch\Dialog\Dialog.cpp">
-      <Filter>Source Files\Epoch\Dialog</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Epoch\VM\vm.cpp">
-      <Filter>Source Files\Epoch\VM</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Epoch\Game.cpp">
-      <Filter>Source Files\Epoch</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Epoch\sprite.cpp">
-      <Filter>Source Files\Epoch</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Epoch\main.cpp">
-      <Filter>Source Files\Epoch</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\vendor\imgui\backends\imgui_impl_glfw.cpp">
       <Filter>Source Files\Engine\Vendor</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3.cpp">
       <Filter>Source Files\Engine\Vendor</Filter>
     </ClCompile>
-    <ClCompile Include="src\Epoch\VM\assembler.cpp">
-      <Filter>Source Files\Epoch\VM</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Epoch\source_file.cpp">
-      <Filter>Source Files\Epoch</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Texture.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Epoch\workstation.cpp">
-      <Filter>Source Files\Epoch</Filter>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Epoch\skybox.cpp">
-      <Filter>Source Files\Epoch</Filter>
+    <ClCompile Include="src\Games\Epoch\Dialog\Dialog.cpp">
+      <Filter>Source Files\Games\Epoch\Dialog</Filter>
     </ClCompile>
-    <ClCompile Include="src\Epoch\Probe\AttitudeControlModule.cpp">
-      <Filter>Source Files\Epoch\Probe</Filter>
+    <ClCompile Include="src\Games\Epoch\Probe\AttitudeControlModule.cpp">
+      <Filter>Source Files\Games\Epoch\Probe</Filter>
     </ClCompile>
-    <ClCompile Include="src\Epoch\Probe\probe.cpp">
-      <Filter>Source Files\Epoch\Probe</Filter>
+    <ClCompile Include="src\Games\Epoch\Probe\probe.cpp">
+      <Filter>Source Files\Games\Epoch\Probe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Games\Epoch\VM\assembler.cpp">
+      <Filter>Source Files\Games\Epoch\VM</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Games\Epoch\VM\vm.cpp">
+      <Filter>Source Files\Games\Epoch\VM</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Games\Epoch\main_old.cpp">
+      <Filter>Source Files\Games\Epoch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Games\Epoch\skybox.cpp">
+      <Filter>Source Files\Games\Epoch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Games\Epoch\source_file.cpp">
+      <Filter>Source Files\Games\Epoch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Games\Epoch\sprite.cpp">
+      <Filter>Source Files\Games\Epoch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Games\Epoch\workstation.cpp">
+      <Filter>Source Files\Games\Epoch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\IGameModule.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Nugget.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Games\Epoch\Epoch.cpp">
+      <Filter>Source Files\Games\Epoch</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,15 +157,6 @@
     <ClInclude Include="src\Engine\shader.h">
       <Filter>Source Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\Epoch\Dialog\Dialog.h">
-      <Filter>Source Files\Epoch\Dialog</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Epoch\VM\vm.h">
-      <Filter>Source Files\Epoch\VM</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Epoch\sprite.h">
-      <Filter>Source Files\Epoch</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\vendor\imgui\backends\imgui_impl_glfw.h">
       <Filter>Source Files\Engine\Vendor</Filter>
     </ClInclude>
@@ -163,32 +166,47 @@
     <ClInclude Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3_loader.h">
       <Filter>Source Files\Engine\Vendor</Filter>
     </ClInclude>
-    <ClInclude Include="src\Epoch\VM\assembler.h">
-      <Filter>Source Files\Epoch\VM</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Epoch\source_file.h">
-      <Filter>Source Files\Epoch</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\Texture.h">
       <Filter>Source Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\Epoch\workstation.h">
-      <Filter>Source Files\Epoch</Filter>
+    <ClInclude Include="src\Games\Epoch\Dialog\Dialog.h">
+      <Filter>Source Files\Games\Epoch\Dialog</Filter>
     </ClInclude>
-    <ClInclude Include="src\Epoch\skybox.h">
-      <Filter>Source Files\Epoch</Filter>
+    <ClInclude Include="src\Games\Epoch\Probe\AttitudeControlModule.h">
+      <Filter>Source Files\Games\Epoch\Probe</Filter>
     </ClInclude>
-    <ClInclude Include="src\Epoch\Probe\AttitudeControlModule.h">
-      <Filter>Source Files\Epoch\Probe</Filter>
+    <ClInclude Include="src\Games\Epoch\Probe\MemoryMap.h">
+      <Filter>Source Files\Games\Epoch\Probe</Filter>
     </ClInclude>
-    <ClInclude Include="src\Epoch\Probe\probe.h">
-      <Filter>Source Files\Epoch\Probe</Filter>
+    <ClInclude Include="src\Games\Epoch\Probe\probe.h">
+      <Filter>Source Files\Games\Epoch\Probe</Filter>
     </ClInclude>
-    <ClInclude Include="src\Epoch\Probe\MemoryMap.h">
-      <Filter>Source Files\Epoch\Probe</Filter>
+    <ClInclude Include="src\Games\Epoch\VM\assembler.h">
+      <Filter>Source Files\Games\Epoch\VM</Filter>
     </ClInclude>
-    <ClInclude Include="src\Epoch\Game.h">
-      <Filter>Source Files\Epoch</Filter>
+    <ClInclude Include="src\Games\Epoch\VM\vm.h">
+      <Filter>Source Files\Games\Epoch\VM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Games\Epoch\skybox.h">
+      <Filter>Source Files\Games\Epoch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Games\Epoch\source_file.h">
+      <Filter>Source Files\Games\Epoch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Games\Epoch\sprite.h">
+      <Filter>Source Files\Games\Epoch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Games\Epoch\workstation.h">
+      <Filter>Source Files\Games\Epoch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\IGameModule.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Nugget.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Games\Epoch\Epoch.h">
+      <Filter>Source Files\Games\Epoch</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

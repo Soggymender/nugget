@@ -131,9 +131,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Camera.cpp" />
+    <ClCompile Include="src\Engine\IGameModule.cpp" />
     <ClCompile Include="src\Engine\mesh.cpp" />
     <ClCompile Include="src\Engine\Mesh2.cpp" />
     <ClCompile Include="src\Engine\Model.cpp" />
+    <ClCompile Include="src\Engine\Nugget.cpp" />
     <ClCompile Include="src\Engine\shader.cpp" />
     <ClCompile Include="src\Engine\Texture.cpp" />
     <ClCompile Include="src\Engine\vendor\glad\glad.c" />
@@ -144,23 +146,26 @@
     <ClCompile Include="src\Engine\vendor\imgui\imgui_draw.cpp" />
     <ClCompile Include="src\Engine\vendor\imgui\imgui_tables.cpp" />
     <ClCompile Include="src\Engine\vendor\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\Epoch\Dialog\Dialog.cpp" />
-    <ClCompile Include="src\Epoch\Game.cpp" />
-    <ClCompile Include="src\Epoch\main.cpp" />
-    <ClCompile Include="src\Epoch\Probe\AttitudeControlModule.cpp" />
-    <ClCompile Include="src\Epoch\Probe\probe.cpp" />
-    <ClCompile Include="src\Epoch\skybox.cpp" />
-    <ClCompile Include="src\Epoch\workstation.cpp" />
-    <ClCompile Include="src\Epoch\source_file.cpp" />
-    <ClCompile Include="src\Epoch\sprite.cpp" />
-    <ClCompile Include="src\Epoch\VM\assembler.cpp" />
-    <ClCompile Include="src\Epoch\VM\vm.cpp" />
+    <ClCompile Include="src\Games\Epoch\Dialog\Dialog.cpp" />
+    <ClCompile Include="src\Games\Epoch\Epoch.cpp" />
+    <ClCompile Include="src\Games\Epoch\main_old.cpp" />
+    <ClCompile Include="src\Games\Epoch\Probe\AttitudeControlModule.cpp" />
+    <ClCompile Include="src\Games\Epoch\Probe\probe.cpp" />
+    <ClCompile Include="src\Games\Epoch\skybox.cpp" />
+    <ClCompile Include="src\Games\Epoch\source_file.cpp" />
+    <ClCompile Include="src\Games\Epoch\sprite.cpp" />
+    <ClCompile Include="src\Games\Epoch\VM\assembler.cpp" />
+    <ClCompile Include="src\Games\Epoch\VM\vm.cpp" />
+    <ClCompile Include="src\Games\Epoch\workstation.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Camera.h" />
+    <ClInclude Include="src\Engine\IGameModule.h" />
     <ClInclude Include="src\Engine\mesh.h" />
     <ClInclude Include="src\Engine\Mesh2.h" />
     <ClInclude Include="src\Engine\Model.h" />
+    <ClInclude Include="src\Engine\Nugget.h" />
     <ClInclude Include="src\Engine\shader.h" />
     <ClInclude Include="src\Engine\Texture.h" />
     <ClInclude Include="src\Engine\vendor\GLFW\glfw3.h" />
@@ -174,17 +179,17 @@
     <ClInclude Include="src\Engine\vendor\imgui\imstb_rectpack.h" />
     <ClInclude Include="src\Engine\vendor\imgui\imstb_textedit.h" />
     <ClInclude Include="src\Engine\vendor\imgui\imstb_truetype.h" />
-    <ClInclude Include="src\Epoch\Dialog\Dialog.h" />
-    <ClInclude Include="src\Epoch\Game.h" />
-    <ClInclude Include="src\Epoch\Probe\AttitudeControlModule.h" />
-    <ClInclude Include="src\Epoch\Probe\MemoryMap.h" />
-    <ClInclude Include="src\Epoch\Probe\probe.h" />
-    <ClInclude Include="src\Epoch\skybox.h" />
-    <ClInclude Include="src\Epoch\workstation.h" />
-    <ClInclude Include="src\Epoch\source_file.h" />
-    <ClInclude Include="src\Epoch\sprite.h" />
-    <ClInclude Include="src\Epoch\VM\assembler.h" />
-    <ClInclude Include="src\Epoch\VM\vm.h" />
+    <ClInclude Include="src\Games\Epoch\Dialog\Dialog.h" />
+    <ClInclude Include="src\Games\Epoch\Epoch.h" />
+    <ClInclude Include="src\Games\Epoch\Probe\AttitudeControlModule.h" />
+    <ClInclude Include="src\Games\Epoch\Probe\MemoryMap.h" />
+    <ClInclude Include="src\Games\Epoch\Probe\probe.h" />
+    <ClInclude Include="src\Games\Epoch\skybox.h" />
+    <ClInclude Include="src\Games\Epoch\source_file.h" />
+    <ClInclude Include="src\Games\Epoch\sprite.h" />
+    <ClInclude Include="src\Games\Epoch\VM\assembler.h" />
+    <ClInclude Include="src\Games\Epoch\VM\vm.h" />
+    <ClInclude Include="src\Games\Epoch\workstation.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glfw3.dll" />

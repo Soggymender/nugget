@@ -1,5 +1,2 @@
-﻿  main.cpp
-C:\development\c++\nugget\src\Epoch\main.cpp(344,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\development\c++\nugget\src\Epoch\main.cpp(246,12): warning C4101: 'vao': unreferenced local variable
-C:\development\c++\nugget\src\Epoch\main.cpp(246,17): warning C4101: 'vbo': unreferenced local variable
+﻿  Camera.cpp
   nugget.vcxproj -> C:\development\c++\nugget\x64\Debug\nugget.exe

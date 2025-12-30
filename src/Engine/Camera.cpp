@@ -3,10 +3,26 @@
 void Camera::ProcessInput(glm::vec3 dir, glm::vec3 euler, float zoomDelta, float dt)
 {
     // Accumulate orientation.
-    orient = glm::quat(euler);
+    // orient = glm::quat(euler);
+    //orient = glm::fquat(euler.x, euler.y, 0.0f);
+
+    glm::vec3 right = glm::vec3(1.0f, 0.0f, 0.0f);
+    glm::quat pitchQuat = glm::angleAxis(euler.x, right);
+
+    orient = pitchQuat;
+
+
+    glm::vec3 worldUp = orient * glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::quat yawQuat = glm::angleAxis(euler.y, worldUp);
+
+    orient = yawQuat *orient;
+
+
+
+
 
     // Accumulate translation.
-    pos += dir * (0.1f * dt);
+    pos += dir;
 
     pos.z += zoomDelta * 9.0f * dt;
 

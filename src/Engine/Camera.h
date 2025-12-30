@@ -44,4 +44,19 @@ public:
 		view = glm::toMat4(-orient);
 		view = glm::translate(view, -pos);
 	}
+
+	glm::vec3 GetForward()
+	{
+		return forward * orient;// *forward;
+	}
+
+	glm::vec3 GetRight()
+	{
+		return right * orient;
+	}
+
+	glm::vec3 GetUp()
+	{
+		return up * orient;
+	}
 };
