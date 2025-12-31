@@ -1,2 +1,5 @@
-﻿  Camera.cpp
+﻿  Entity.cpp
+  Object.cpp
+  ObjectComponent.cpp
+  Generating Code...
   nugget.vcxproj -> C:\development\c++\nugget\x64\Debug\nugget.exe

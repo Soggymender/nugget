@@ -30,6 +30,15 @@
     <Filter Include="Source Files\Games\Epoch\Dialog">
       <UniqueIdentifier>{9f9f001b-97ab-4e2c-909f-092f85a9d692}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Scene">
+      <UniqueIdentifier>{5b73e9ea-9368-4229-b459-945dab6796e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Object">
+      <UniqueIdentifier>{fcdca0f5-d852-4458-a978-659e4527fc60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Rendering">
+      <UniqueIdentifier>{95ddeff1-8a9f-4bc2-8731-e6c1c72e7a7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\vendor\glad\glad.c">
@@ -53,26 +62,11 @@
     <ClCompile Include="src\Engine\Camera.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\mesh.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Mesh2.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Model.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\shader.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\vendor\imgui\backends\imgui_impl_glfw.cpp">
       <Filter>Source Files\Engine\Vendor</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3.cpp">
       <Filter>Source Files\Engine\Vendor</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Texture.cpp">
-      <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
@@ -116,6 +110,30 @@
     <ClCompile Include="src\Games\Epoch\Epoch.cpp">
       <Filter>Source Files\Games\Epoch</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Object.cpp">
+      <Filter>Source Files\Engine\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\ObjectComponent.cpp">
+      <Filter>Source Files\Engine\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Texture.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\shader.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Model.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Mesh2.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\mesh.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Entity.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\vendor\GLFW\glfw3.h">
@@ -145,18 +163,6 @@
     <ClInclude Include="src\Engine\Camera.h">
       <Filter>Source Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\mesh.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Mesh2.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Model.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\shader.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\vendor\imgui\backends\imgui_impl_glfw.h">
       <Filter>Source Files\Engine\Vendor</Filter>
     </ClInclude>
@@ -165,9 +171,6 @@
     </ClInclude>
     <ClInclude Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3_loader.h">
       <Filter>Source Files\Engine\Vendor</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Texture.h">
-      <Filter>Source Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="src\Games\Epoch\Dialog\Dialog.h">
       <Filter>Source Files\Games\Epoch\Dialog</Filter>
@@ -207,6 +210,33 @@
     </ClInclude>
     <ClInclude Include="src\Games\Epoch\Epoch.h">
       <Filter>Source Files\Games\Epoch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Object.h">
+      <Filter>Source Files\Engine\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\ObjectComponent.h">
+      <Filter>Source Files\Engine\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Texture.h">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\shader.h">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Model.h">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Mesh2.h">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\mesh.h">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Entity.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\SceneComponent.h">
+      <Filter>Source Files\Engine\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

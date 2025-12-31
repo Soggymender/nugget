@@ -131,11 +131,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Camera.cpp" />
+    <ClCompile Include="src\Engine\Entity.cpp" />
     <ClCompile Include="src\Engine\IGameModule.cpp" />
     <ClCompile Include="src\Engine\mesh.cpp" />
     <ClCompile Include="src\Engine\Mesh2.cpp" />
     <ClCompile Include="src\Engine\Model.cpp" />
     <ClCompile Include="src\Engine\Nugget.cpp" />
+    <ClCompile Include="src\Engine\Object.cpp" />
+    <ClCompile Include="src\Engine\ObjectComponent.cpp" />
     <ClCompile Include="src\Engine\shader.cpp" />
     <ClCompile Include="src\Engine\Texture.cpp" />
     <ClCompile Include="src\Engine\vendor\glad\glad.c" />
@@ -161,11 +164,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Camera.h" />
+    <ClInclude Include="src\Engine\Entity.h" />
     <ClInclude Include="src\Engine\IGameModule.h" />
     <ClInclude Include="src\Engine\mesh.h" />
     <ClInclude Include="src\Engine\Mesh2.h" />
     <ClInclude Include="src\Engine\Model.h" />
     <ClInclude Include="src\Engine\Nugget.h" />
+    <ClInclude Include="src\Engine\Object.h" />
+    <ClInclude Include="src\Engine\ObjectComponent.h" />
+    <ClInclude Include="src\Engine\SceneComponent.h" />
     <ClInclude Include="src\Engine\shader.h" />
     <ClInclude Include="src\Engine\Texture.h" />
     <ClInclude Include="src\Engine\vendor\GLFW\glfw3.h" />
