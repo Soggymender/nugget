@@ -139,6 +139,7 @@
     <ClCompile Include="src\Engine\Nugget.cpp" />
     <ClCompile Include="src\Engine\Object.cpp" />
     <ClCompile Include="src\Engine\ObjectComponent.cpp" />
+    <ClCompile Include="src\Engine\SceneLoader.cpp" />
     <ClCompile Include="src\Engine\shader.cpp" />
     <ClCompile Include="src\Engine\Texture.cpp" />
     <ClCompile Include="src\Engine\vendor\glad\glad.c" />
@@ -173,6 +174,7 @@
     <ClInclude Include="src\Engine\Object.h" />
     <ClInclude Include="src\Engine\ObjectComponent.h" />
     <ClInclude Include="src\Engine\SceneComponent.h" />
+    <ClInclude Include="src\Engine\SceneLoader.h" />
     <ClInclude Include="src\Engine\shader.h" />
     <ClInclude Include="src\Engine\Texture.h" />
     <ClInclude Include="src\Engine\vendor\GLFW\glfw3.h" />

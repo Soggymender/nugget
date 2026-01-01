@@ -1,5 +1,23 @@
-﻿  Entity.cpp
-  Object.cpp
-  ObjectComponent.cpp
-  Generating Code...
+﻿  Epoch.cpp
+C:\development\c++\nugget\src\Engine\SceneLoader.h(14,15): warning C4099: 'NEntity': type name first seen using 'class' now seen using 'struct'
+C:\development\c++\nugget\src\Engine\Entity.h(10,7): message : see declaration of 'NEntity'
+C:\development\c++\nugget\src\Games\Epoch\Epoch.cpp(279,62): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\development\c++\nugget\src\Games\Epoch\Epoch.cpp(279,38): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\development\c++\nugget\src\Games\Epoch\Epoch.cpp(294,13): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\development\c++\nugget\src\Games\Epoch\Epoch.cpp(311,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\development\c++\nugget\src\Games\Epoch\Epoch.cpp(366,21): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\development\c++\nugget\src\Games\Epoch\Epoch.cpp(368,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\development\c++\nugget\src\Games\Epoch\Epoch.cpp(371,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\development\c++\nugget\src\Games\Epoch\Epoch.cpp(371,21): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\development\c++\nugget\src\Games\Epoch\Epoch.cpp(506,42): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\development\c++\nugget\src\Games\Epoch\Epoch.cpp(507,42): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\development\c++\nugget\src\Games\Epoch\Epoch.cpp(513,25): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
   nugget.vcxproj -> C:\development\c++\nugget\x64\Debug\nugget.exe

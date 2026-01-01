@@ -1,6 +1,8 @@
 #include "Epoch.h"
 
 #include "Engine/Nugget.h"
+#include "Engine/Entity.h"
+#include "Engine/SceneLoader.h"
 
 #include "engine/core.h"
 
@@ -48,6 +50,23 @@ char textBuffer[256 * 256] = "";
 GLuint noiseTexture;
 
 Model* computer;
+
+class EntityCustomProcessor : public NSceneLoader::ICustomProcessor
+{
+    NEntity* PreProcessEntity(string name, unordered_map<string, void*>const& properties)
+    {
+        // Check the type.
+        // Allocate the correct type derived from NEntity.
+
+        return new NEntity();
+    }
+
+    void PostProcessEntity(NEntity* pEntity, string parentName, unordered_map<string, void*>const& properties)
+    {
+        // Cast pEntity to the correct type.
+        // Post process.
+    }
+};
 
 GLuint createTexture(const int width, const int height)
 {
@@ -146,6 +165,9 @@ void EpochGame::Create()
     noiseTexture = createTexture(256, 256);
 
     computer = new Model("assets/computer/Models/PC.obj");
+
+    NSceneLoader sceneLoader;
+    sceneLoader.LoadScene("assets/office/Models/office.fbx");
 }
 
 void EpochGame::Destroy()
