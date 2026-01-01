@@ -1,7 +1,7 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include "engine/mesh.h"
+#include "engine/SimpleMesh.h"
 
 #include "engine/shader.h"
 
@@ -20,7 +20,7 @@ public:
     void Update(float deltaTime);
     void Render();
     
-    Mesh mesh;
+    SimpleMesh mesh;
 
     short mapWidth = 0;
     short mapHeight = 0;

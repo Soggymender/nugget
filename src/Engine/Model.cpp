@@ -69,7 +69,7 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 
 }
 
-Mesh2 Model::processMesh(aiMesh* mesh, const aiScene* scene)
+Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
     // data to fill
     vector<Vertex> vertices;
@@ -150,7 +150,7 @@ Mesh2 Model::processMesh(aiMesh* mesh, const aiScene* scene)
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
     // return a mesh object created from the extracted mesh data
-    return Mesh2(vertices, indices, textures);
+    return Mesh(vertices, indices, textures);
 }
 
 // checks all material textures of a given type and loads the textures if they're not loaded yet.

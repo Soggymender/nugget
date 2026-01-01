@@ -57,9 +57,14 @@ void NSceneLoader::ProcessNode(aiNode* node, const aiScene* scene, ICustomProces
             }
         }
 
-        auto metaString = static_cast<const aiString*>(properties["p_type"]);
-        std::string p_type = metaString->C_Str();
- 
+        std::string p_type;
+
+        if (properties.find("p_type") != properties.end())
+        {
+            auto metaString = static_cast<const aiString*>(properties["p_type"]);
+            p_type = metaString->C_Str();
+        }
+
         // Blender makes similar names unique by adding .001 etc. Strip it.
         //string entityName = toLowerCase().split("\\.")[0];
 
@@ -93,6 +98,6 @@ void NSceneLoader::ProcessNode(aiNode* node, const aiScene* scene, ICustomProces
     // Process children.
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        ProcessNode(node->mChildren[i], scene);
+        ProcessNode(node->mChildren[i], scene, pCustomProcessor);
     }
 }
