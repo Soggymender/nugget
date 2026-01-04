@@ -1,6 +1,8 @@
 #ifndef SCENE_LOADER_H
 #define SCENE_LOADER_H
 
+#include "Singleton.h"
+
 #include "glad/glad.h"
 
 #include <string>
@@ -13,8 +15,10 @@ struct aiNode;
 
 struct NEntity;
 
-class NSceneLoader
+class NSceneLoader : public NSingleton<NSceneLoader>
 {
+    friend class NSingleton<NSceneLoader>;
+
 public:
 
     class ICustomProcessor
@@ -28,6 +32,9 @@ public:
     void LoadScene(string const& path, ICustomProcessor* pCustomProcessor = nullptr);
 
 private:
+
+    // Can't make your own.
+    NSceneLoader() = default;
 
     void ProcessNode(aiNode* node, const aiScene* scene, ICustomProcessor* pCustomProcessor = nullptr);
 };

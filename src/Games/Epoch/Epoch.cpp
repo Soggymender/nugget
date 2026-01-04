@@ -164,9 +164,8 @@ void EpochGame::Create()
 
     computer = new Model("assets/computer/Models/PC.obj");
 
-    NSceneLoader sceneLoader;
     EntityCustomProcessor entityCustomProcessor;
-    sceneLoader.LoadScene("assets/office/Models/office.fbx", &entityCustomProcessor);
+    NSceneLoader::Instance().LoadScene("assets/office/Models/office.fbx", &entityCustomProcessor);
 }
 
 void EpochGame::Destroy()
