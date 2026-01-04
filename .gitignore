@@ -7,3 +7,9 @@
 *.obj
 /x64/Debug
 /x64
+/.vs
+*.obj
+x64/Debug/nugget.exe
+x64/Debug/nugget.ilk
+x64/Debug/nugget.log
+/x64

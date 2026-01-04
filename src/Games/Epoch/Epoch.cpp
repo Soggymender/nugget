@@ -117,8 +117,6 @@ EpochGame::~EpochGame()
 
 void EpochGame::Create()
 {
-    // Nugget& nugget = *Nugget::getInstance();
-
     // Tile Map
     ourShader.Create("shaders/shader.vs", "shaders/shader.fs");
 
@@ -181,14 +179,12 @@ void EpochGame::SetScreenTexture(unsigned int textureId)
     // Dig up the location of the current texture.
 
     // TODO: Find the right texture dynamically.
-    computer->meshes[6].textures[0].id = textureId;
+    computer->meshes[6].textures[0]->id = textureId;
 }
 
 void EpochGame::Update(float deltaTime)
 {
-    Nugget* pNugget = Nugget::GetInstance();
-
-    ProcessInput(pNugget->GetWindow(), deltaTime);
+    ProcessInput(Nugget::Instance().GetWindow(), deltaTime);
 
     probe.Update(deltaTime);
 
@@ -461,21 +457,19 @@ void ShowIconGrid() {
 
 void EpochGame::ProcessInput(GLFWwindow* window, float deltaTime)
 {
-    Nugget& pNug = *Nugget::GetInstance();
-
     glm::vec3 dir{};
 
     // First poll mouse and keyboard.
     //
 
     
-    const NPointer* pPointer = pNug.GetPointer();
+    const NPointer* pPointer = Nugget::Instance().GetPointer();
     Cursor(pPointer->relativeX, pPointer->relativeY, deltaTime);
 
-    const NScrollWheel* pScroll = pNug.GetScrollWheel();
+    const NScrollWheel* pScroll = Nugget::Instance().GetScrollWheel();
     Scroll(pScroll->deltaX, pScroll->deltaY, deltaTime);
     
-    const NKeyboard* pKeyboard = pNug.GetKeyboard();
+    const NKeyboard* pKeyboard = Nugget::Instance().GetKeyboard();
     KeyDown(pKeyboard);
     
 
@@ -521,9 +515,9 @@ void EpochGame::KeyDown(const NKeyboard* pKeyboard)
         camControl = !camControl;
 
         if (camControl)
-            glfwSetInputMode(Nugget::GetInstance()->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            glfwSetInputMode(Nugget::Instance().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         else
-            glfwSetInputMode(Nugget::GetInstance()->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            glfwSetInputMode(Nugget::Instance().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 }
 

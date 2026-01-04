@@ -1,5 +1,7 @@
 #include "Mesh.h"
 
+#include "Texture.h"
+
 #include "glad/glad.h"
 
 #include <glm/glm.hpp>
@@ -12,7 +14,7 @@
 
 using namespace std;
 
-Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures)
+Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures)
 {
     this->vertices = vertices;
     this->indices = indices;
@@ -37,7 +39,7 @@ void Mesh::Draw(Shader& shader)
         glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
         // retrieve texture number (the N in diffuse_textureN)
         string number;
-        string name = textures[i].type;
+        string name = textures[i]->type;
         if (name == "texture_diffuse")
             number = std::to_string(diffuseNr++);
         else if (name == "texture_specular")
@@ -50,7 +52,7 @@ void Mesh::Draw(Shader& shader)
         // now set the sampler to the correct texture unit
         glUniform1i(glGetUniformLocation(shader.ID, (name + number).c_str()), i);
         // and finally bind the texture
-        glBindTexture(GL_TEXTURE_2D, textures[i].id);
+        glBindTexture(GL_TEXTURE_2D, textures[i]->id);
     }
 
     // draw mesh

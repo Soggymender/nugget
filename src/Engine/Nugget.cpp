@@ -41,8 +41,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void Nugget::CursorPosCallback(GLFWwindow* window, double xpos, double ypos)
 {
-    Nugget* pNug = GetInstance();
-    NPointer* pPointer = &pNug->m_pointer;
+    NPointer* pPointer = &Instance().m_pointer;
 
     pPointer->prevX = pPointer->curX;
     pPointer->prevY = pPointer->curY;
@@ -56,8 +55,7 @@ void Nugget::CursorPosCallback(GLFWwindow* window, double xpos, double ypos)
 
 void Nugget::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    Nugget* pNug = GetInstance();
-    NScrollWheel* pScroll = &pNug->m_scroll;
+    NScrollWheel* pScroll = &Instance().m_scroll;
 
     pScroll->deltaX = xoffset;
     pScroll->deltaY = yoffset;
@@ -65,8 +63,7 @@ void Nugget::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 
 void Nugget::SetKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    Nugget* pNug = GetInstance();
-    NKeyboard* pKeyboard = &pNug->m_keyboard; 
+    NKeyboard* pKeyboard = &Instance().m_keyboard; 
 
     if (key == GLFW_KEY_UNKNOWN)
         return;

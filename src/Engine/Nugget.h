@@ -2,6 +2,7 @@
 #define NUGGET_H
 
 #include "IGameModule.h"
+#include "Singleton.h"
 
 #include <unordered_map>
 
@@ -80,20 +81,11 @@ struct NKeyboard
     }
 };
 
-class Nugget {
+class Nugget : public NSingleton<Nugget> {
+
+    friend class NSingleton<Nugget>;
 
 public:
-
-    Nugget(const Nugget& obj) = delete;
-
-    static Nugget* GetInstance() {
-        
-        if (m_pInstance == nullptr) {
-            m_pInstance = new Nugget();
-        }
-
-        return m_pInstance;
-    }
 
     void Run(IGameModule* pGameModule);
 
@@ -105,7 +97,8 @@ public:
 
 private:
 
-    static Nugget* m_pInstance;
+    // Can't make your own.
+    Nugget() = default;
 
     bool m_Running = true;
     GLFWwindow* m_pWindow = nullptr;
@@ -114,8 +107,6 @@ private:
     NPointer m_pointer;
     NScrollWheel m_scroll;
     NKeyboard m_keyboard;
-
-    Nugget() {}
 
     void Create();
     void Destroy();

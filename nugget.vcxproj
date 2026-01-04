@@ -142,6 +142,7 @@
     <ClCompile Include="src\Engine\SceneLoader.cpp" />
     <ClCompile Include="src\Engine\shader.cpp" />
     <ClCompile Include="src\Engine\Texture.cpp" />
+    <ClCompile Include="src\Engine\TextureManager.cpp" />
     <ClCompile Include="src\Engine\vendor\glad\glad.c" />
     <ClCompile Include="src\Engine\vendor\imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="src\Engine\vendor\imgui\backends\imgui_impl_opengl3.cpp" />
@@ -176,7 +177,9 @@
     <ClInclude Include="src\Engine\SceneComponent.h" />
     <ClInclude Include="src\Engine\SceneLoader.h" />
     <ClInclude Include="src\Engine\shader.h" />
+    <ClInclude Include="src\Engine\Singleton.h" />
     <ClInclude Include="src\Engine\Texture.h" />
+    <ClInclude Include="src\Engine\TextureManager.h" />
     <ClInclude Include="src\Engine\vendor\GLFW\glfw3.h" />
     <ClInclude Include="src\Engine\vendor\GLFW\glfw3native.h" />
     <ClInclude Include="src\Engine\vendor\imgui\backends\imgui_impl_glfw.h" />

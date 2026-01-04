@@ -137,6 +137,9 @@
     <ClCompile Include="src\Engine\SceneLoader.cpp">
       <Filter>Source Files\Engine\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\TextureManager.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\vendor\GLFW\glfw3.h">
@@ -243,6 +246,12 @@
     </ClInclude>
     <ClInclude Include="src\Engine\SceneLoader.h">
       <Filter>Source Files\Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\TextureManager.h">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Singleton.h">
+      <Filter>Source Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
