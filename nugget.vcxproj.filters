@@ -122,9 +122,6 @@
     <ClCompile Include="src\Engine\shader.cpp">
       <Filter>Source Files\Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Model.cpp">
-      <Filter>Source Files\Engine\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Mesh.cpp">
       <Filter>Source Files\Engine\Rendering</Filter>
     </ClCompile>
@@ -227,9 +224,6 @@
       <Filter>Source Files\Engine\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\shader.h">
-      <Filter>Source Files\Engine\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Model.h">
       <Filter>Source Files\Engine\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Mesh.h">

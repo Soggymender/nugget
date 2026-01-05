@@ -49,7 +49,7 @@ char textBuffer[256 * 256] = "";
 
 GLuint noiseTexture;
 
-Model* computer;
+NEntity computer;
 vector<NEntity*> entities;
 
 class EntityCustomProcessor : public NSceneLoader::ICustomProcessor
@@ -166,10 +166,10 @@ void EpochGame::Create()
 
     noiseTexture = createTexture(256, 256);
 
-    //computer = new Model("assets/computer/Models/PC.obj");
+//    EntityCustomProcessor entityCustomProcessor;
+//    NSceneLoader::Instance().LoadScene("assets/office/Models/office.fbx", &entityCustomProcessor);
 
-    EntityCustomProcessor entityCustomProcessor;
-    NSceneLoader::Instance().LoadScene("assets/office/Models/office.fbx", &entityCustomProcessor);
+    NSceneLoader::Instance().LoadScene("assets/computer/Models/PC.obj", nullptr, &computer);
 }
 
 void EpochGame::Destroy()
@@ -680,10 +680,10 @@ void EpochGame::RenderWorkstation()
 
     ourShader.setMatrix("model", modelSpace);
 
-    //computer->Draw(ourShader);
+    computer.Draw(ourShader);
 
-    for (NEntity* entity : entities)
-        entity->Draw(ourShader);
+//    for (NEntity* entity : entities)
+//        entity->Draw(ourShader);
 }
 
 

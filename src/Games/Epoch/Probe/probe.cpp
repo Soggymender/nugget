@@ -1,5 +1,7 @@
 #include "probe.h"
 
+#include "Engine/SceneLoader.h"
+
 #include "../vm/vm.h"
 
 #include "glm/gtx/rotate_vector.hpp"
@@ -36,7 +38,7 @@ void Probe::Create(Shader* shader)
 {
     this->shader = shader;
 
-    model = new Model("assets/probe/probe.obj");
+    NSceneLoader::Instance().LoadScene("assets/probe/probe.obj", nullptr, &entity);
 
     attitudeControlModule.Initialize(this);
 }
@@ -73,5 +75,5 @@ void Probe::Render()
 
     shader->setMatrix("model", modelSpace);
 
-    model->Draw(*shader);
+    entity.Draw(*shader);
 }

@@ -22,7 +22,7 @@
 
 using namespace std;
 
-void NSceneLoader::LoadScene(string const& path, ICustomProcessor* pCustomProcessor)
+void NSceneLoader::LoadScene(string const& path, ICustomProcessor* pCustomProcessor, NEntity* pEntity)
 {
     // Read file via ASSIMP
     Assimp::Importer importer;
@@ -39,7 +39,7 @@ void NSceneLoader::LoadScene(string const& path, ICustomProcessor* pCustomProces
     string workingDir = path.substr(0, path.find_last_of('/'));
 
     // Process ASSIMP's root node recursively
-    ProcessNode(scene->mRootNode, 0, scene, pCustomProcessor, workingDir, nullptr);
+    ProcessNode(scene->mRootNode, 0, scene, pCustomProcessor, workingDir, pEntity);
 }
 
 void GetNodeMetadata(aiNode* node, unordered_map<string, void*>& properties)
@@ -89,29 +89,28 @@ void NSceneLoader::ProcessNode(aiNode* node, int depth, const aiScene* scene, IC
     }
     else
     {
-        if (pCustomProcessor != nullptr)
+        // The call can pass in a single entity, or we can call back to request them one at a time.
+        if (pCustomProcessor != nullptr && curEntity == nullptr)
+            curEntity = pCustomProcessor->PreProcessEntity(name, properties);
+
+        if (curEntity != nullptr)
         {
-            if (curEntity == nullptr)
-                curEntity = pCustomProcessor->PreProcessEntity(name, properties);
-
-            if (curEntity != nullptr)
+            // Process meshes in this node.
+            for (unsigned int i = 0; i < node->mNumMeshes; i++)
             {
-                // Process meshes in this node.
-                for (unsigned int i = 0; i < node->mNumMeshes; i++)
-                {
-                    aiMesh* aiMesh = scene->mMeshes[node->mMeshes[i]];
+                aiMesh* aiMesh = scene->mMeshes[node->mMeshes[i]];
 
-                    curEntity->meshes.push_back(ProcessMesh(aiMesh, scene, workingDir));
-                }
-
-                // Process children.
-                for (unsigned int i = 0; i < node->mNumChildren; i++)
-                {
-                    ProcessNode(node->mChildren[i], depth + 1, scene, pCustomProcessor, workingDir, curEntity);
-                }
-
-                pCustomProcessor->PostProcessEntity(curEntity, "none", properties);
+                curEntity->meshes.push_back(ProcessMesh(aiMesh, scene, workingDir));
             }
+
+            // Process children.
+            for (unsigned int i = 0; i < node->mNumChildren; i++)
+            {
+                ProcessNode(node->mChildren[i], depth + 1, scene, pCustomProcessor, workingDir, curEntity);
+            }
+
+            if (pCustomProcessor != nullptr)
+                pCustomProcessor->PostProcessEntity(curEntity, "none", properties);
         }
     }
 }   

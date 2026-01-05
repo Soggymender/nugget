@@ -35,7 +35,7 @@ public:
         virtual void PostProcessEntity(NEntity* pEntity, string parentName, unordered_map<string, void*>const& properties) = 0;
     };
 
-    void LoadScene(string const& path, ICustomProcessor* pCustomProcessor = nullptr);
+    void LoadScene(string const& path, ICustomProcessor* pCustomProcessor = nullptr, NEntity* pEntity = nullptr);
 
 private:
 

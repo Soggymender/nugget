@@ -4,19 +4,20 @@
 #include <string>
 
 #include "engine/camera.h"
+#include "engine/entity.h"
 #include "engine/shader.h"
-#include "engine/Model.h"
 
 #include "glm/glm.hpp"
 
 using namespace std;
+
 
 class Skybox
 {
 public:
 
     Shader* shader;
-    Model* model;
+    NEntity entity;
 
     Skybox();
 

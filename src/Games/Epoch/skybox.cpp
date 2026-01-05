@@ -1,5 +1,8 @@
 #include "skybox.h"
 
+#include "Engine/Entity.h"
+#include "Engine/SceneLoader.h"
+
 #include "vm/vm.h"
 
 Skybox::Skybox()
@@ -11,7 +14,8 @@ void Skybox::Create(Shader* shader)
 {
     this->shader = shader;
 
-    model = new Model("assets/skybox/skybox.obj");
+    // Test load the computer.
+    NSceneLoader::Instance().LoadScene("assets/skybox/skybox.obj", nullptr, &entity);
 }
 float heading = 0.0f;
 float headingRate = 5.0f;
@@ -36,5 +40,5 @@ void Skybox::Render()
 
     shader->setMatrix("model", modelSpace);
 
-    model->Draw(*shader);
+    entity.Draw(*shader);
 }

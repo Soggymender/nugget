@@ -4,7 +4,7 @@
 #include <string>
 
 #include "engine/shader.h"
-#include "engine/Model.h"
+#include "engine/entity.h"
 
 #include "glm/glm.hpp"
 
@@ -17,7 +17,7 @@ class Probe
 public:
 
     Shader* shader;
-    Model* model;
+    NEntity entity;
 
     glm::vec3 translation = glm::vec3(0.0f, 0.0f, -10.0f);
 
