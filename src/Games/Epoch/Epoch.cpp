@@ -50,6 +50,7 @@ char textBuffer[256 * 256] = "";
 GLuint noiseTexture;
 
 Model* computer;
+vector<NEntity*> entities;
 
 class EntityCustomProcessor : public NSceneLoader::ICustomProcessor
 {
@@ -58,7 +59,10 @@ class EntityCustomProcessor : public NSceneLoader::ICustomProcessor
         // Check the type.
         // Allocate the correct type derived from NEntity.
 
-        return new NEntity();
+        NEntity* entity = new NEntity();
+        entities.push_back(entity);
+
+        return entity;
     }
 
     void PostProcessEntity(NEntity* pEntity, string parentName, unordered_map<string, void*>const& properties)
@@ -162,7 +166,7 @@ void EpochGame::Create()
 
     noiseTexture = createTexture(256, 256);
 
-    computer = new Model("assets/computer/Models/PC.obj");
+    //computer = new Model("assets/computer/Models/PC.obj");
 
     EntityCustomProcessor entityCustomProcessor;
     NSceneLoader::Instance().LoadScene("assets/office/Models/office.fbx", &entityCustomProcessor);
@@ -178,7 +182,7 @@ void EpochGame::SetScreenTexture(unsigned int textureId)
     // Dig up the location of the current texture.
 
     // TODO: Find the right texture dynamically.
-    computer->meshes[6].textures[0]->id = textureId;
+    //computer->meshes[6].textures[0]->id = textureId;
 }
 
 void EpochGame::Update(float deltaTime)
@@ -676,7 +680,10 @@ void EpochGame::RenderWorkstation()
 
     ourShader.setMatrix("model", modelSpace);
 
-    computer->Draw(ourShader);
+    //computer->Draw(ourShader);
+
+    for (NEntity* entity : entities)
+        entity->Draw(ourShader);
 }
 
 

@@ -3,6 +3,10 @@
 
 #include "Singleton.h"
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 #include "glad/glad.h"
 
 #include <string>
@@ -14,6 +18,8 @@ struct aiScene;
 struct aiNode;
 
 struct NEntity;
+class Mesh;
+struct Texture;
 
 class NSceneLoader : public NSingleton<NSceneLoader>
 {
@@ -36,7 +42,9 @@ private:
     // Can't make your own.
     NSceneLoader() = default;
 
-    void ProcessNode(aiNode* node, const aiScene* scene, ICustomProcessor* pCustomProcessor = nullptr);
+    void ProcessNode(aiNode* node, int depth, const aiScene* scene, ICustomProcessor* pCustomProcessor, const string& workingDir, NEntity* curEntity);
+    Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene, const string& workingDir);
+    vector<Texture*> ProcessMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName, const string& workingDir);
 };
 
 #endif
