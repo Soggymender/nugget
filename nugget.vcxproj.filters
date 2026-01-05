@@ -137,6 +137,9 @@
     <ClCompile Include="src\Engine\TextureManager.cpp">
       <Filter>Source Files\Engine\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\SceneComponent.cpp">
+      <Filter>Source Files\Engine\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\vendor\GLFW\glfw3.h">

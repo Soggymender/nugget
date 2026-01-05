@@ -21,6 +21,7 @@ public:
 
 	NEntity();
 
+	void Update(float deltaTime);
 	void Draw(Shader& shader);
 };
 

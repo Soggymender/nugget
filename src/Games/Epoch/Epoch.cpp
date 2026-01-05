@@ -169,6 +169,8 @@ void EpochGame::Create()
 //    EntityCustomProcessor entityCustomProcessor;
 //    NSceneLoader::Instance().LoadScene("assets/office/Models/office.fbx", &entityCustomProcessor);
 
+    computer.m_sceneComponent.m_position = glm::vec3(0.0f, 0.0f, -10.0f);
+    computer.m_sceneComponent.m_rotation = glm::vec3(0.0f, 45.0f, 0.0f);
     NSceneLoader::Instance().LoadScene("assets/computer/Models/PC.obj", nullptr, &computer);
 }
 
@@ -661,7 +663,8 @@ void EpochGame::RenderSpace()
 
 void EpochGame::RenderWorkstation()
 {
-    static glm::vec3 translation = glm::vec3(0.0f, 0.0f, -10.0f);
+    /*
+    static glm::vec3 translation = glm::vec3(10.0f, 0.0f, -10.0f);
 
     // render the loaded model
     glm::mat4 modelSpace = glm::mat4(1.0f);
@@ -672,13 +675,13 @@ void EpochGame::RenderWorkstation()
     float angle = glm::radians(0.0f);  // Convert angle to radians
     glm::vec3 axis(1.0f, 0.0f, 0.0f);  // Y-axis
     modelSpace = glm::rotate(modelSpace, angle, axis);
-
+    */
     ourShader.use();
 
     ourShader.setMatrix("view", workspaceCamera.view);
     ourShader.setMatrix("projection", projection);
 
-    ourShader.setMatrix("model", modelSpace);
+    //ourShader.setMatrix("model", modelSpace);
 
     computer.Draw(ourShader);
 

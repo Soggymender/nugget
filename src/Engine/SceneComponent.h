@@ -13,7 +13,12 @@ class NSceneComponent : public NObjectComponent
 public:
 
     glm::vec3 m_position;
-    glm::quat m_rotation;
+    glm::vec3 m_rotation;
+
+    glm::mat4 m_transformWS;
+
+    void Update(float deltaTime);
+    void UpdateTransform();
 };
 
 #endif
