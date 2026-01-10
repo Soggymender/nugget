@@ -5,6 +5,7 @@
 #include "engine/Object.h"
 #include "engine/SceneComponent.h"
 
+#include <string>
 #include <vector>
 
 using namespace std;
@@ -15,11 +16,14 @@ class NEntity : public NObject
 {
 public:
 
-	NSceneComponent m_sceneComponent;
+	string name = "";
+
+	NSceneComponent m_sceneComponent = {};
 
 	vector<Mesh> meshes;
 
 	NEntity();
+	NEntity(string& name) { this->name = name; }
 
 	void Update(float deltaTime);
 	void Draw(Shader& shader);

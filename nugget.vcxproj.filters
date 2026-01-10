@@ -140,6 +140,9 @@
     <ClCompile Include="src\Engine\SceneComponent.cpp">
       <Filter>Source Files\Engine\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Scene.cpp">
+      <Filter>Source Files\Engine\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\vendor\GLFW\glfw3.h">
@@ -249,6 +252,9 @@
     </ClInclude>
     <ClInclude Include="src\Engine\Singleton.h">
       <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene.h">
+      <Filter>Source Files\Engine\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "Mesh.h"
+#include "Scene.h"
 #include "Texture.h"
 #include "TextureManager.h"
 
@@ -22,14 +23,14 @@
 
 using namespace std;
 
-void NSceneLoader::LoadScene(string const& path, ICustomProcessor* pCustomProcessor, NEntity* pEntity)
+void NSceneLoader::LoadScene(string const& path, ICustomProcessor* pCustomProcessor, NScene* pScene, NEntity* pEntity)
 {
     // Read file via ASSIMP
     Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | /*aiProcess_FlipUVs |*/ aiProcess_CalcTangentSpace);
+    const aiScene* pImportScene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | /*aiProcess_FlipUVs |*/ aiProcess_CalcTangentSpace);
 
     // Check for errors
-    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+    if (!pImportScene || pImportScene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !pImportScene->mRootNode)
     {
         cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
         return;
@@ -39,7 +40,7 @@ void NSceneLoader::LoadScene(string const& path, ICustomProcessor* pCustomProces
     string workingDir = path.substr(0, path.find_last_of('/'));
 
     // Process ASSIMP's root node recursively
-    ProcessNode(scene->mRootNode, 0, scene, pCustomProcessor, workingDir, pEntity);
+    ProcessNode(pImportScene->mRootNode, 0, pImportScene, pCustomProcessor, workingDir, pScene, pEntity);
 }
 
 void GetNodeMetadata(aiNode* node, unordered_map<string, void*>& properties)
@@ -69,7 +70,7 @@ void GetNodeMetadata(aiNode* node, unordered_map<string, void*>& properties)
     }
 }
 
-void NSceneLoader::ProcessNode(aiNode* node, int depth, const aiScene* scene, ICustomProcessor* pCustomProcessor, const string& workingDir, NEntity* curEntity)
+void NSceneLoader::ProcessNode(aiNode* node, int depth, const aiScene* pImportScene, ICustomProcessor* pCustomProcessor, const string& workingDir, NScene* pScene, NEntity* curEntity)
 {
     string name = node->mName.C_Str();
 
@@ -84,33 +85,33 @@ void NSceneLoader::ProcessNode(aiNode* node, int depth, const aiScene* scene, IC
         // Process children.
         for (unsigned int i = 0; i < node->mNumChildren; i++)
         {
-            ProcessNode(node->mChildren[i], depth + 1, scene, pCustomProcessor, workingDir, curEntity);
+            ProcessNode(node->mChildren[i], depth + 1, pImportScene, pCustomProcessor, workingDir, pScene, curEntity);
         }
     }
     else
     {
         // The call can pass in a single entity, or we can call back to request them one at a time.
         if (pCustomProcessor != nullptr && curEntity == nullptr)
-            curEntity = pCustomProcessor->PreProcessEntity(name, properties);
+            curEntity = pCustomProcessor->PreProcessEntity(name, properties, pScene);
 
         if (curEntity != nullptr)
         {
             // Process meshes in this node.
             for (unsigned int i = 0; i < node->mNumMeshes; i++)
             {
-                aiMesh* aiMesh = scene->mMeshes[node->mMeshes[i]];
+                aiMesh* aiMesh = pImportScene->mMeshes[node->mMeshes[i]];
 
-                curEntity->meshes.push_back(ProcessMesh(aiMesh, scene, workingDir));
+                curEntity->meshes.push_back(ProcessMesh(aiMesh, pImportScene, workingDir));
             }
 
             // Process children.
             for (unsigned int i = 0; i < node->mNumChildren; i++)
             {
-                ProcessNode(node->mChildren[i], depth + 1, scene, pCustomProcessor, workingDir, curEntity);
+                ProcessNode(node->mChildren[i], depth + 1, pImportScene, pCustomProcessor, workingDir, pScene, curEntity);
             }
 
             if (pCustomProcessor != nullptr)
-                pCustomProcessor->PostProcessEntity(curEntity, "none", properties);
+                pCustomProcessor->PostProcessEntity(curEntity, "none", properties, pScene);
         }
     }
 }   

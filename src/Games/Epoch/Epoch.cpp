@@ -2,6 +2,7 @@
 
 #include "Engine/Nugget.h"
 #include "Engine/Entity.h"
+#include "Engine/Scene.h"
 #include "Engine/SceneLoader.h"
 
 #include "engine/core.h"
@@ -50,22 +51,22 @@ char textBuffer[256 * 256] = "";
 GLuint noiseTexture;
 
 NEntity computer;
-vector<NEntity*> entities;
+NScene  officeScene;
 
 class EntityCustomProcessor : public NSceneLoader::ICustomProcessor
 {
-    NEntity* PreProcessEntity(string name, unordered_map<string, void*>const& properties)
+    NEntity* PreProcessEntity(string name, unordered_map<string, void*>const& properties, NScene* scene)
     {
         // Check the type.
         // Allocate the correct type derived from NEntity.
 
-        NEntity* entity = new NEntity();
-        entities.push_back(entity);
+        NEntity* entity = new NEntity(name);
+        scene->Add(entity);
 
         return entity;
     }
 
-    void PostProcessEntity(NEntity* pEntity, string parentName, unordered_map<string, void*>const& properties)
+    void PostProcessEntity(NEntity* pEntity, string parentName, unordered_map<string, void*>const& properties, NScene* scene)
     {
         // Cast pEntity to the correct type.
         // Post process.
@@ -166,12 +167,18 @@ void EpochGame::Create()
 
     noiseTexture = createTexture(256, 256);
 
-//    EntityCustomProcessor entityCustomProcessor;
-//    NSceneLoader::Instance().LoadScene("assets/office/Models/office.fbx", &entityCustomProcessor);
+    EntityCustomProcessor entityCustomProcessor;
+    NSceneLoader::Instance().LoadScene("assets/office/Models/office.fbx", &entityCustomProcessor, &officeScene);
 
-    computer.m_sceneComponent.m_position = glm::vec3(0.0f, 0.0f, -10.0f);
-    computer.m_sceneComponent.m_rotation = glm::vec3(0.0f, 45.0f, 0.0f);
-    NSceneLoader::Instance().LoadScene("assets/computer/Models/PC.obj", nullptr, &computer);
+    NEntity* computer = officeScene.FindEntityByName("Monitor");
+    if (computer)
+    {
+        computer->m_sceneComponent.m_position = glm::vec3(0.0f, 0.0f, -10.0f);
+    }
+
+ //   computer.m_sceneComponent.m_position = glm::vec3(0.0f, 0.0f, -10.0f);
+ //   computer.m_sceneComponent.m_rotation = glm::vec3(0.0f, 45.0f, 0.0f);
+    //NSceneLoader::Instance().LoadScene("assets/computer/Models/PC.obj", nullptr, &computer);
 }
 
 void EpochGame::Destroy()
@@ -683,13 +690,11 @@ void EpochGame::RenderWorkstation()
 
     //ourShader.setMatrix("model", modelSpace);
 
-    computer.Draw(ourShader);
+//    computer.Draw(ourShader);
 
-//    for (NEntity* entity : entities)
-//        entity->Draw(ourShader);
+    officeScene.Draw(ourShader);
 }
-
-
+ 
 void EpochGame::RenderHUD()
 {
 

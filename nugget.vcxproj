@@ -133,6 +133,7 @@
     <ClCompile Include="src\Engine\Camera.cpp" />
     <ClCompile Include="src\Engine\Entity.cpp" />
     <ClCompile Include="src\Engine\IGameModule.cpp" />
+    <ClCompile Include="src\Engine\Scene.cpp" />
     <ClCompile Include="src\Engine\SceneComponent.cpp" />
     <ClCompile Include="src\Engine\SimpleMesh.cpp" />
     <ClCompile Include="src\Engine\Mesh.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="src\Engine\Camera.h" />
     <ClInclude Include="src\Engine\Entity.h" />
     <ClInclude Include="src\Engine\IGameModule.h" />
+    <ClInclude Include="src\Engine\Scene.h" />
     <ClInclude Include="src\Engine\SimpleMesh.h" />
     <ClInclude Include="src\Engine\Mesh.h" />
     <ClInclude Include="src\Engine\Nugget.h" />

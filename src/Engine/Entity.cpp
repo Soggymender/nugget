@@ -16,6 +16,9 @@ void NEntity::Update(float deltaTime)
 
 void NEntity::Draw(Shader& shader)
 {
+    if (meshes.size() == 0)
+        return;
+
     m_sceneComponent.UpdateTransform();
 
     shader.setMatrix("model", m_sceneComponent.m_transformWS);
