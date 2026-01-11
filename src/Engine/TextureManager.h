@@ -10,7 +10,7 @@
 
 using namespace std;
 
-class Texture;
+struct Texture;
 
 class NTextureManager : public NSingleton<NTextureManager>
 {

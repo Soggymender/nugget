@@ -38,7 +38,7 @@ void Probe::Create(Shader* shader)
 {
     this->shader = shader;
 
-    NSceneLoader::Instance().LoadScene("assets/probe/probe.obj", nullptr, nullptr, &entity);
+    NSceneLoader::Instance().LoadEntity("assets/probe/probe.obj", &entity);
 
     attitudeControlModule.Initialize(this);
 }

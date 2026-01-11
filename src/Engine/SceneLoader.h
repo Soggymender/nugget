@@ -18,7 +18,7 @@ struct aiScene;
 struct aiNode;
 
 class NScene;
-struct NEntity;
+class NEntity;
 class Mesh;
 struct Texture;
 
@@ -28,7 +28,7 @@ class NSceneLoader : public NSingleton<NSceneLoader>
 
 public:
 
-    class ICustomProcessor
+    class IEntityProcessor
     {
     public:
 
@@ -36,14 +36,17 @@ public:
         virtual void PostProcessEntity(NEntity* pEntity, string parentName, unordered_map<string, void*>const& properties, NScene* scene) = 0;
     };
 
-    void LoadScene(string const& path, ICustomProcessor* pCustomProcessor = nullptr, NScene* scene = nullptr, NEntity* pEntity = nullptr);
+    void LoadEntity(string const& path, NEntity* pEntity);
+    void LoadScene(string const& path, NScene* scene, IEntityProcessor* pCustomProcessor);
 
 private:
+
+    void Load(string const& path, NScene* scene = nullptr, NEntity* pEntity = nullptr, IEntityProcessor* pCustomProcessor = nullptr);
 
     // Can't make your own.
     NSceneLoader() = default;
 
-    void ProcessNode(aiNode* node, int depth, const aiScene* pImportScene, ICustomProcessor* pCustomProcessor, const string& workingDir, NScene* pScene, NEntity* curEntity);
+    void ProcessNode(aiNode* node, int depth, const aiScene* pImportScene, IEntityProcessor* pEntityProcessor, const string& workingDir, NScene* pScene, NEntity* curEntity);
     Mesh ProcessMesh(aiMesh* mesh, const aiScene* pImportScene, const string& workingDir);
     vector<Texture*> ProcessMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName, const string& workingDir);
 };

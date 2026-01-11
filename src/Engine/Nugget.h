@@ -102,11 +102,11 @@ private:
 
     bool m_Running = true;
     GLFWwindow* m_pWindow = nullptr;
-    unsigned int m_frameBuffer;
+    unsigned int m_frameBuffer = 0;
 
-    NPointer m_pointer;
-    NScrollWheel m_scroll;
-    NKeyboard m_keyboard;
+    NPointer m_pointer = {};
+    NScrollWheel m_scroll = {};
+    NKeyboard m_keyboard = {};
 
     void Create();
     void Destroy();

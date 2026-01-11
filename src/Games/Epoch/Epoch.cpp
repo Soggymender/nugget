@@ -53,7 +53,7 @@ GLuint noiseTexture;
 NEntity computer;
 NScene  officeScene;
 
-class EntityCustomProcessor : public NSceneLoader::ICustomProcessor
+class EntityProcessor : public NSceneLoader::IEntityProcessor
 {
     NEntity* PreProcessEntity(string name, unordered_map<string, void*>const& properties, NScene* scene)
     {
@@ -79,7 +79,9 @@ GLuint createTexture(const int width, const int height)
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
-    unsigned char noiseData[256 * 256 * 4];
+    unsigned char* noiseData = (unsigned char*)malloc(256 * 256 * 4);
+    if (noiseData == nullptr)
+        return 0;
 
     // Seed the random number generator
     std::srand(static_cast<unsigned int>(std::time(0)));
@@ -102,6 +104,8 @@ GLuint createTexture(const int width, const int height)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    free(noiseData);
 
     return textureID;
 }
@@ -167,8 +171,8 @@ void EpochGame::Create()
 
     noiseTexture = createTexture(256, 256);
 
-    EntityCustomProcessor entityCustomProcessor;
-    NSceneLoader::Instance().LoadScene("assets/office/Models/office.fbx", &entityCustomProcessor, &officeScene);
+    EntityProcessor entityProcessor;
+    NSceneLoader::Instance().LoadScene("assets/office/Models/office.fbx", &officeScene, &entityProcessor);
 
     NEntity* computer = officeScene.FindEntityByName("Monitor");
     if (computer)
@@ -211,7 +215,7 @@ void EpochGame::Update(float deltaTime)
     spaceCamZoom = 0;
 }
 
-void ShowToolIcons(int small_pane_size, int height);
+void ShowToolIcons(float small_pane_size, float height);
 void ShowIconGrid();
 GLuint LoadTextureFromFile(const char* filename);
 
@@ -300,7 +304,7 @@ void EpochGame::UpdateGUI() {
 
         if (workstation.currentSourceFile) {
             // TODO: This doesn't need to happen every frame...
-            strcpy(buf1, workstation.currentSourceFile->filename.c_str());
+            strcpy_s(buf1, workstation.currentSourceFile->filename.c_str());
         }
 
         ImGui::InputText("##", buf1, 64);
@@ -317,7 +321,7 @@ void EpochGame::UpdateGUI() {
 void LoadCurrentSourceFile() {
 
     // Load the source file's text.
-    strcpy(textBuffer, workstation.currentSourceFile->contents.c_str());
+    strcpy_s(textBuffer, workstation.currentSourceFile->contents.c_str());
 }
 
 void RestoreCurrentSourceFile() {
@@ -367,14 +371,14 @@ void BuildAndTransmit() {
     }
 }
 
-void ShowToolIcons(int small_pane_size, int height) {
+void ShowToolIcons(float small_pane_size, float height) {
 
     ImGuiStyle& style = ImGui::GetStyle();
     float borderSize = style.WindowPadding.x;
 
     float areaWidth = small_pane_size;
 
-    int offsetX = (areaWidth - ((height + borderSize) * 2)) / 2;
+    float offsetX = (areaWidth - ((height + borderSize) * 2)) / 2;
 
     // Set up grid parameters
     ImVec2 iconSize(height, height);
@@ -476,10 +480,10 @@ void EpochGame::ProcessInput(GLFWwindow* window, float deltaTime)
 
     
     const NPointer* pPointer = Nugget::Instance().GetPointer();
-    Cursor(pPointer->relativeX, pPointer->relativeY, deltaTime);
+    Cursor((float)pPointer->relativeX, (float)pPointer->relativeY, deltaTime);
 
     const NScrollWheel* pScroll = Nugget::Instance().GetScrollWheel();
-    Scroll(pScroll->deltaX, pScroll->deltaY, deltaTime);
+    Scroll((float)pScroll->deltaX, (float)pScroll->deltaY, deltaTime);
     
     const NKeyboard* pKeyboard = Nugget::Instance().GetKeyboard();
     KeyDown(pKeyboard);
@@ -506,7 +510,7 @@ void EpochGame::ProcessInput(GLFWwindow* window, float deltaTime)
     //spaceCamera.ProcessInput(dir, workspaceCamOrient, workspaceCamZoom, dt);
 }
 
-void EpochGame::Cursor(double x, double y, float deltaTime)
+void EpochGame::Cursor(float x, float y, float deltaTime)
 {
     if (camControl) {
 
@@ -515,7 +519,7 @@ void EpochGame::Cursor(double x, double y, float deltaTime)
     }
 }
 
-void EpochGame::Scroll(double x, double y, float deltaTime)
+void EpochGame::Scroll(float x, float y, float deltaTime)
 {
     workspaceCamZoom += y;
 }

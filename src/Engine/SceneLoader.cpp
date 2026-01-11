@@ -23,7 +23,17 @@
 
 using namespace std;
 
-void NSceneLoader::LoadScene(string const& path, ICustomProcessor* pCustomProcessor, NScene* pScene, NEntity* pEntity)
+void NSceneLoader::LoadEntity(string const& path, NEntity* pEntity)
+{
+    Load(path, nullptr, pEntity, nullptr);
+}
+
+void NSceneLoader::LoadScene(string const& path, NScene* scene, IEntityProcessor* pEntityProcessor)
+{
+    Load(path, scene, nullptr, pEntityProcessor);
+}
+
+void NSceneLoader::Load(string const& path, NScene* pScene, NEntity* pEntity, IEntityProcessor* pEntityProcessor)
 {
     // Read file via ASSIMP
     Assimp::Importer importer;
@@ -40,14 +50,14 @@ void NSceneLoader::LoadScene(string const& path, ICustomProcessor* pCustomProces
     string workingDir = path.substr(0, path.find_last_of('/'));
 
     // Process ASSIMP's root node recursively
-    ProcessNode(pImportScene->mRootNode, 0, pImportScene, pCustomProcessor, workingDir, pScene, pEntity);
+    ProcessNode(pImportScene->mRootNode, 0, pImportScene, pEntityProcessor, workingDir, pScene, pEntity);
 }
 
 void GetNodeMetadata(aiNode* node, unordered_map<string, void*>& properties)
 {
     if (node->mMetaData != nullptr)
     {
-        for (int i = 0; i < node->mMetaData->mNumProperties; i++)
+        for (int i = 0; i < (int)node->mMetaData->mNumProperties; i++)
         {
             aiMetadata* meta = node->mMetaData;
 
@@ -70,7 +80,7 @@ void GetNodeMetadata(aiNode* node, unordered_map<string, void*>& properties)
     }
 }
 
-void NSceneLoader::ProcessNode(aiNode* node, int depth, const aiScene* pImportScene, ICustomProcessor* pCustomProcessor, const string& workingDir, NScene* pScene, NEntity* curEntity)
+void NSceneLoader::ProcessNode(aiNode* node, int depth, const aiScene* pImportScene, IEntityProcessor* pEntityProcessor, const string& workingDir, NScene* pScene, NEntity* curEntity)
 {
     string name = node->mName.C_Str();
 
@@ -85,14 +95,14 @@ void NSceneLoader::ProcessNode(aiNode* node, int depth, const aiScene* pImportSc
         // Process children.
         for (unsigned int i = 0; i < node->mNumChildren; i++)
         {
-            ProcessNode(node->mChildren[i], depth + 1, pImportScene, pCustomProcessor, workingDir, pScene, curEntity);
+            ProcessNode(node->mChildren[i], depth + 1, pImportScene, pEntityProcessor, workingDir, pScene, curEntity);
         }
     }
     else
     {
         // The call can pass in a single entity, or we can call back to request them one at a time.
-        if (pCustomProcessor != nullptr && curEntity == nullptr)
-            curEntity = pCustomProcessor->PreProcessEntity(name, properties, pScene);
+        if (pEntityProcessor != nullptr && curEntity == nullptr)
+            curEntity = pEntityProcessor->PreProcessEntity(name, properties, pScene);
 
         if (curEntity != nullptr)
         {
@@ -107,11 +117,11 @@ void NSceneLoader::ProcessNode(aiNode* node, int depth, const aiScene* pImportSc
             // Process children.
             for (unsigned int i = 0; i < node->mNumChildren; i++)
             {
-                ProcessNode(node->mChildren[i], depth + 1, pImportScene, pCustomProcessor, workingDir, pScene, curEntity);
+                ProcessNode(node->mChildren[i], depth + 1, pImportScene, pEntityProcessor, workingDir, pScene, curEntity);
             }
 
-            if (pCustomProcessor != nullptr)
-                pCustomProcessor->PostProcessEntity(curEntity, "none", properties, pScene);
+            if (pEntityProcessor != nullptr)
+                pEntityProcessor->PostProcessEntity(curEntity, "none", properties, pScene);
         }
     }
 }   

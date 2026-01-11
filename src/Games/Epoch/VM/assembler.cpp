@@ -361,7 +361,7 @@ static unsigned short GetValue(string& valString, int bit_count) {
     char formatChar = valString[0];
     string trimmed;
 
-    unsigned short val;
+    unsigned short val = 0;
 
     if (formatChar == '#') {
 

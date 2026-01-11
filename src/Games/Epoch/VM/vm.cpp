@@ -142,7 +142,8 @@ int read_image(const char* image_path, bool useOrigin, ushort* progMem)
 {
 #define _CRT_SECURE_NO_WARNINGS
 	
-	FILE* file = fopen(image_path, "rb");
+	FILE* file;
+	fopen_s(&file, image_path, "rb");
 	if (!file) {
 		return 0;
 	};

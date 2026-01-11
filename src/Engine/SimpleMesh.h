@@ -7,8 +7,8 @@
 
 struct BoundingBox
 {
-    glm::vec3 min;
-    glm::vec3 max;
+    glm::vec3 min = {};
+    glm::vec3 max = {};
 };
 
 class SimpleMesh
@@ -23,7 +23,7 @@ public:
 
     void CalculateBoundingBox();
 
-    unsigned int textureId;
+    unsigned int textureId = 0;
     Shader* shader = nullptr;
 
     float* vertices = nullptr;
@@ -35,9 +35,9 @@ public:
     int vertCount = 0;
     int indexCount = 0;
 
-    unsigned int VBO, VAO, EBO;
+    unsigned int VBO = 0, VAO = 0, EBO = 0;
 
-    BoundingBox boundingBox;
+    BoundingBox boundingBox = {};
 };
 
 #endif

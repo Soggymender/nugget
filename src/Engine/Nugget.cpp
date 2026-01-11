@@ -98,7 +98,7 @@ void Nugget::Run(IGameModule* gameModule) {
         Render(NRenderPhase::PostRender);
 
         // Timer
-        float currentFrame = glfwGetTime();
+        float currentFrame = (float)glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
     }
@@ -217,8 +217,6 @@ void Nugget::Create()
 
     // Create a full screen quad and VAO
     GLuint screenVao, screenVbo;
-
-    GLuint vao, vbo;
 
     // Define the vertices for a full-screen quad (in NDC coordinates)
     float vertices[] = {

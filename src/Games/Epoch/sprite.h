@@ -20,7 +20,7 @@ public:
     void Update(float deltaTime);
     void Render();
     
-    SimpleMesh mesh;
+    SimpleMesh mesh = {};
 
     short mapWidth = 0;
     short mapHeight = 0;
@@ -33,24 +33,24 @@ private:
     class TilesetPosition
     {
     public:
-        float x;
-        float y;
+        float x = 0.0f;
+        float y = 0.0f;
     };
 
     void GenerateMesh();
 
 public:
 
-    TilesetPosition* tilesetPos;
+    TilesetPosition* tilesetPos = nullptr;
 
-    float spriteUvWidth; 
-    float textureTileHeight;
+    float spriteUvWidth = 0.0f; 
+    float textureTileHeight = 0.0f;
 
     unsigned int    tileIdCount = 0;
     unsigned short* tileIds = nullptr;
 
-    glm::mat4 model;
-    glm::vec3 pos;
+    glm::mat4 model = {};
+    glm::vec3 pos = {};
     float depthOffset = 0.0f;
 };
 

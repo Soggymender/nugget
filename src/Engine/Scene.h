@@ -8,7 +8,7 @@
 
 using namespace std;
 
-struct NEntity;
+class NEntity;
 class Shader;
 
 class NScene

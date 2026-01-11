@@ -15,7 +15,7 @@ void Skybox::Create(Shader* shader)
     this->shader = shader;
 
     // Test load the computer.
-    NSceneLoader::Instance().LoadScene("assets/skybox/skybox.obj", nullptr, nullptr, &entity);
+    NSceneLoader::Instance().LoadEntity("assets/skybox/skybox.obj", &entity);
 }
 float heading = 0.0f;
 float headingRate = 5.0f;

@@ -85,8 +85,8 @@ bool Sprite::Create(Shader* shader, const char* spriteFilename, unsigned int wid
         for (int x = 0; x < framesPerRow; x++) {
 
             int index = y * framesPerRow + x;
-            tilesetPos[index].x = frameId % framesPerRow;
-            tilesetPos[index].y = frameId / framesPerRow;
+            tilesetPos[index].x = float(frameId % framesPerRow);
+            tilesetPos[index].y = float(frameId / framesPerRow);
 
             frameId++;
         }

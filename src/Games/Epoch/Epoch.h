@@ -34,8 +34,8 @@ public:
     void SetScreenTexture(unsigned int textureId);
 
     void ProcessInput(GLFWwindow* window, float deltaTime);
-    void Cursor(double x, double y, float deltaTime);
-    void Scroll(double x, double y, float deltaTime);
+    void Cursor(float x, float y, float deltaTime);
+    void Scroll(float x, float y, float deltaTime);
     void KeyDown(const NKeyboard* pKeyboard);
 
     void Update(float deltaTime);

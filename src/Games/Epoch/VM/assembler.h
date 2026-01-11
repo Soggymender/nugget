@@ -9,11 +9,11 @@ class Line {
 
 public:
 
-    int lineNumber;
-    string sentence;
+    int lineNumber = 0;
+    string sentence = {};
 
-    std::vector<string> words;
-    unsigned short address;
+    std::vector<string> words = {};
+    unsigned short address = 0;
     unsigned short numWords = 0;
     unsigned short numInstWords = 0;
     unsigned short firstInstWord = 0;

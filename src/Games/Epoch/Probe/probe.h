@@ -16,8 +16,8 @@ class Probe
 {
 public:
 
-    Shader* shader;
-    NEntity entity;
+    Shader* shader = nullptr;
+    NEntity entity = {};
 
     glm::vec3 translation = glm::vec3(0.0f, 0.0f, -10.0f);
 
@@ -25,7 +25,7 @@ public:
     float headingRate = 5.0f;
 
     unsigned short imageSize = 0;
-    unsigned short image[0xFFFF];
+    unsigned short image[0xFFFF] = {};
 
     // Modules
     AttitudeControlModule attitudeControlModule;
