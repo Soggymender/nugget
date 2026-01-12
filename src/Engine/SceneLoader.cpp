@@ -80,6 +80,18 @@ void GetNodeMetadata(aiNode* node, unordered_map<string, void*>& properties)
     }
 }
 
+static glm::mat4x4 AssimpToGlm(aiMatrix4x4& m)
+{
+    glm::mat4x4 result;
+
+    result[0][0] = m.a1; result[1][0] = m.a2; result[2][0] = m.a3; result[3][0] = m.a4;
+    result[0][1] = m.b1; result[1][1] = m.b2; result[2][1] = m.b3; result[3][1] = m.b4;
+    result[0][2] = m.c1; result[1][2] = m.c2; result[2][2] = m.c3; result[3][2] = m.c4;
+    result[0][3] = m.d1; result[1][3] = m.d2; result[2][3] = m.d3; result[3][3] = m.d4;
+
+    return result;
+}
+
 void NSceneLoader::ProcessNode(aiNode* node, int depth, const aiScene* pImportScene, IEntityProcessor* pEntityProcessor, const string& workingDir, NScene* pScene, NEntity* curEntity)
 {
     string name = node->mName.C_Str();
@@ -106,6 +118,12 @@ void NSceneLoader::ProcessNode(aiNode* node, int depth, const aiScene* pImportSc
 
         if (curEntity != nullptr)
         {
+            glm::mat4 transform = AssimpToGlm(node->mTransformation);
+
+            glm::vec3 position = glm::vec3(glm::vec3(transform[3][0], transform[3][1], transform[3][2]));
+
+            curEntity->SetPositionLS(position);
+
             // Process meshes in this node.
             for (unsigned int i = 0; i < node->mNumMeshes; i++)
             {

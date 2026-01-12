@@ -20,6 +20,8 @@ public:
 
 	NSceneComponent m_sceneComponent = {};
 
+	NSceneComponent* m_rootComponent = &m_sceneComponent;
+
 	vector<Mesh> meshes;
 
 	NEntity();
@@ -27,6 +29,8 @@ public:
 
 	void Update(float deltaTime);
 	void Draw(Shader& shader);
+
+	void SetPositionLS(glm::vec3& position);
 };
 
 #endif
