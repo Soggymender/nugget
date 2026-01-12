@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "Mesh.h"
+#include "StaticMeshComponent.h"
 #include "Scene.h"
 #include "Texture.h"
 #include "TextureManager.h"
@@ -112,24 +113,31 @@ void NSceneLoader::ProcessNode(aiNode* node, int depth, const aiScene* pImportSc
     }
     else
     {
+        // Get the node's transform.
+        glm::mat4 transform = AssimpToGlm(node->mTransformation);
+        glm::vec3 position = glm::vec3(glm::vec3(transform[3][0], transform[3][1], transform[3][2]));
+
         // The call can pass in a single entity, or we can call back to request them one at a time.
         if (pEntityProcessor != nullptr && curEntity == nullptr)
+        {
             curEntity = pEntityProcessor->PreProcessEntity(name, properties, pScene);
+            curEntity->SetPositionLS(position);        
+        }
 
         if (curEntity != nullptr)
         {
-            glm::mat4 transform = AssimpToGlm(node->mTransformation);
-
-            glm::vec3 position = glm::vec3(glm::vec3(transform[3][0], transform[3][1], transform[3][2]));
-
-            curEntity->SetPositionLS(position);
-
             // Process meshes in this node.
             for (unsigned int i = 0; i < node->mNumMeshes; i++)
             {
                 aiMesh* aiMesh = pImportScene->mMeshes[node->mMeshes[i]];
 
-                curEntity->meshes.push_back(ProcessMesh(aiMesh, pImportScene, workingDir));
+                Mesh* pMesh = ProcessMesh(aiMesh, pImportScene, workingDir);
+                if (pMesh != nullptr)
+                {
+                    NStaticMeshComponent* pMeshComp = new NStaticMeshComponent(pMesh);
+                    pMeshComp->SetPositionLS(position);
+                    curEntity->AttachComponent(pMeshComp);
+                }
             }
 
             // Process children.
@@ -144,7 +152,7 @@ void NSceneLoader::ProcessNode(aiNode* node, int depth, const aiScene* pImportSc
     }
 }   
 
-Mesh NSceneLoader::ProcessMesh(aiMesh* mesh, const aiScene* scene, const string& workingDir)
+Mesh* NSceneLoader::ProcessMesh(aiMesh* mesh, const aiScene* scene, const string& workingDir)
 {
     vector<Vertex> vertices;
     vector<unsigned int> indices;
@@ -218,7 +226,9 @@ Mesh NSceneLoader::ProcessMesh(aiMesh* mesh, const aiScene* scene, const string&
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
     // return a mesh object created from the extracted mesh data
-    return Mesh(vertices, indices, textures);
+    Mesh* pMesh = new Mesh(vertices, indices, textures);
+
+    return pMesh;
 }
 
 vector<Texture*> NSceneLoader::ProcessMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName, const string& workingDir)

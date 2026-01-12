@@ -19,6 +19,8 @@ public:
 
     void Update(float deltaTime);
     void UpdateTransform();
+
+    void SetPositionLS(glm::vec3& position);
 };
 
 #endif

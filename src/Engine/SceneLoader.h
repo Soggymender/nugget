@@ -47,7 +47,7 @@ private:
     NSceneLoader() = default;
 
     void ProcessNode(aiNode* node, int depth, const aiScene* pImportScene, IEntityProcessor* pEntityProcessor, const string& workingDir, NScene* pScene, NEntity* curEntity);
-    Mesh ProcessMesh(aiMesh* mesh, const aiScene* pImportScene, const string& workingDir);
+    Mesh* ProcessMesh(aiMesh* mesh, const aiScene* pImportScene, const string& workingDir);
     vector<Texture*> ProcessMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName, const string& workingDir);
 };
 

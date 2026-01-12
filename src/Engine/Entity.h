@@ -18,11 +18,8 @@ public:
 
 	string name = "";
 
-	NSceneComponent m_sceneComponent = {};
-
-	NSceneComponent* m_rootComponent = &m_sceneComponent;
-
-	vector<Mesh> meshes;
+	NSceneComponent m_defaultSceneComponent = {};
+	NSceneComponent* m_rootComponent = &m_defaultSceneComponent;
 
 	NEntity();
 	NEntity(string& name) { this->name = name; }

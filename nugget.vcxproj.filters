@@ -128,9 +128,6 @@
     <ClCompile Include="src\Engine\SimpleMesh.cpp">
       <Filter>Source Files\Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Entity.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\SceneLoader.cpp">
       <Filter>Source Files\Engine\Scene</Filter>
     </ClCompile>
@@ -141,6 +138,12 @@
       <Filter>Source Files\Engine\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Scene.cpp">
+      <Filter>Source Files\Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\StaticMeshComponent.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Entity.cpp">
       <Filter>Source Files\Engine\Scene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -238,9 +241,6 @@
     <ClInclude Include="src\Engine\SimpleMesh.h">
       <Filter>Source Files\Engine\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Entity.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\SceneComponent.h">
       <Filter>Source Files\Engine\Scene</Filter>
     </ClInclude>
@@ -254,6 +254,12 @@
       <Filter>Source Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Scene.h">
+      <Filter>Source Files\Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\StaticMeshComponent.h">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Entity.h">
       <Filter>Source Files\Engine\Scene</Filter>
     </ClInclude>
   </ItemGroup>

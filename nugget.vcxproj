@@ -142,6 +142,7 @@
     <ClCompile Include="src\Engine\ObjectComponent.cpp" />
     <ClCompile Include="src\Engine\SceneLoader.cpp" />
     <ClCompile Include="src\Engine\shader.cpp" />
+    <ClCompile Include="src\Engine\StaticMeshComponent.cpp" />
     <ClCompile Include="src\Engine\Texture.cpp" />
     <ClCompile Include="src\Engine\TextureManager.cpp" />
     <ClCompile Include="src\Engine\vendor\glad\glad.c" />
@@ -179,6 +180,7 @@
     <ClInclude Include="src\Engine\SceneLoader.h" />
     <ClInclude Include="src\Engine\shader.h" />
     <ClInclude Include="src\Engine\Singleton.h" />
+    <ClInclude Include="src\Engine\StaticMeshComponent.h" />
     <ClInclude Include="src\Engine\Texture.h" />
     <ClInclude Include="src\Engine\TextureManager.h" />
     <ClInclude Include="src\Engine\vendor\GLFW\glfw3.h" />

@@ -176,7 +176,7 @@ void EpochGame::Create()
 
     NEntity* computer = officeScene.FindEntityByName("Monitor");
     if (computer)
-        computer->m_sceneComponent.m_position = glm::vec3(0.0f, 0.0f, -10.0f);
+        computer->m_defaultSceneComponent.m_position = glm::vec3(0.0f, 0.0f, -10.0f);
 
  //   computer.m_sceneComponent.m_position = glm::vec3(0.0f, 0.0f, -10.0f);
  //   computer.m_sceneComponent.m_rotation = glm::vec3(0.0f, 45.0f, 0.0f);

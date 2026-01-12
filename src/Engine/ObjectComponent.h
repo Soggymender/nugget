@@ -15,14 +15,16 @@ class NObjectComponent
 
 public:
 
-	NObject* GetOwner() { return m_pOwner;  }
+	NObject* GetParent() { return m_pParent;  }
+
+	virtual void Update(float deltaTime) { };
 
 protected:
-	void SetOwner(NObject* owner) { m_pOwner = owner; }
+	void SetParent(NObject* pParent) { m_pParent = pParent; }
 
 private:
 
-	NObject* m_pOwner = nullptr;
+	NObject* m_pParent = nullptr;
 };
 
 #endif

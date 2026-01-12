@@ -11,11 +11,11 @@ class NObject
 {
 public:
 
-	void AttachComponent(NObjectComponent* component)
+	void AttachComponent(NObjectComponent* pComponent)
 	{
-		m_components.push_back(component);
+		m_components.push_back(pComponent);
 
-		component->SetOwner(this);
+		pComponent->SetParent(this);
 	}
 
 	template<typename T>

@@ -29,3 +29,8 @@ void NSceneComponent::UpdateTransform()
 	m_transformWS = glm::rotate(m_transformWS, glm::radians(m_rotation.y), glm::vec3(0, 1, 0));
 	m_transformWS = glm::rotate(m_transformWS, glm::radians(m_rotation.z), glm::vec3(0, 0, 1));
 }
+
+void NSceneComponent::SetPositionLS(glm::vec3& position)
+{
+	m_position = position;
+}
