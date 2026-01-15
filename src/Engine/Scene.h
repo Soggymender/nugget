@@ -20,6 +20,7 @@ public:
     void Add(NEntity* pEntity);
 
     void Update(float deltaTime);
+    void UpdateTransforms();
     void Draw(Shader& shader);
 
     NEntity* FindEntityByName(const string& name);

@@ -21,10 +21,13 @@ public:
 	NSceneComponent m_defaultSceneComponent = {};
 	NSceneComponent* m_rootComponent = &m_defaultSceneComponent;
 
+	bool m_transformDirty = true;
+
 	NEntity();
 	NEntity(string& name) { this->name = name; }
 
 	void Update(float deltaTime);
+	void UpdateTransform();
 	void Draw(Shader& shader);
 
 	void SetPositionLS(glm::vec3& position);

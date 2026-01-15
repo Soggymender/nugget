@@ -11,7 +11,7 @@ class NObject
 {
 public:
 
-	void AttachComponent(NObjectComponent* pComponent)
+	virtual void AttachComponent(NObjectComponent* pComponent)
 	{
 		m_components.push_back(pComponent);
 

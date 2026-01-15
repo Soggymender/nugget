@@ -18,7 +18,16 @@ void NScene::Add(NEntity* pEntity)
 
 void NScene::Update(float deltaTime)
 {
+	for (NEntity* pEntity : entities)
+		pEntity->Update(deltaTime);
 
+	UpdateTransforms();
+}
+
+void NScene::UpdateTransforms()
+{
+	for (NEntity* pEntity : entities)
+		pEntity->UpdateTransform();
 }
 
 void NScene::Draw(Shader& shader)

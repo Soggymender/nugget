@@ -136,7 +136,12 @@ void NSceneLoader::ProcessNode(aiNode* node, int depth, const aiScene* pImportSc
                 {
                     NStaticMeshComponent* pMeshComp = new NStaticMeshComponent(pMesh);
                     pMeshComp->SetPositionLS(position);
-                    curEntity->AttachComponent(pMeshComp);
+
+                    if (curEntity != nullptr)
+                    {
+                        curEntity->AttachComponent(pMeshComp);
+                        pMeshComp->SetParent(curEntity->m_rootComponent);
+                    }
                 }
             }
 

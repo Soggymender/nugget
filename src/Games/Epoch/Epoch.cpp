@@ -202,6 +202,8 @@ void EpochGame::Update(float deltaTime)
 
     probe.Update(deltaTime);
 
+    officeScene.Update(deltaTime);
+
     workspaceCamera.Update();
     spaceCamera.Update();
 
